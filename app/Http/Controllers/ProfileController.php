@@ -37,6 +37,16 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    public function updateTwoFactor(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        $user->two_factor_enabled = $request->boolean('two_factor_enabled');
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('status', '2fa-updated');
+    }
+
     /**
      * Delete the user's account.
      */
