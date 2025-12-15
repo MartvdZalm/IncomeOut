@@ -91,7 +91,7 @@ class DashboardController extends Controller
                 ->sum('amount');
         }
         
-        return view('public.dashboard', [
+        return view('dashboard.index', [
             'monthlyIncome' => $monthlyIncome,
             'monthlyExpenses' => $monthlyExpenses,
             'currentBalance' => $currentBalance,

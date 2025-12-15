@@ -1,11 +1,12 @@
-<x-app-layout title="About">
+<x-corporate-layout title="About">
+
     <!-- Hero Section -->
     <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="text-center">
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">About Us</h1>
                 <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-                    Learn more about our mission to help you achieve financial freedom.
+                    A simple, free tool I’m building to help you get a clearer view of your finances.
                 </p>
             </div>
         </div>
@@ -16,18 +17,18 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Mission Section -->
             <div class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Why I Built This</h2>
                 <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                    At {{ config('app.name', 'Laravel') }}, we believe that everyone deserves to have control over their financial future. Our mission is to provide you with the tools and insights you need to make informed financial decisions and achieve your goals.
+                    Managing money can feel overwhelming, especially when tools are expensive or complicated. I wanted to create something simple, free, and helpful that anyone can use.
                 </p>
                 <p class="text-lg text-gray-700 leading-relaxed">
-                    We understand that managing personal finances can be overwhelming. That's why we've created an intuitive platform that simplifies the process, making it easy for you to track your income, monitor your expenses, and plan for the future.
+                    This project is still in the early stages, but my goal is to provide an easy way to track income, monitor expenses, and plan for the future without unnecessary complexity.
                 </p>
             </div>
 
             <!-- Values Section -->
             <div class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Our Values</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">What Matters to Me</h2>
                 <div class="space-y-6">
                     <div class="flex items-start">
                         <div class="flex-shrink-0">
@@ -38,9 +39,9 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">User-Centric</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">People First</h3>
                             <p class="text-gray-700">
-                                Your financial success is our top priority. We design every feature with your needs in mind.
+                                I want to build tools that genuinely help people, not just look good on paper.
                             </p>
                         </div>
                     </div>
@@ -54,9 +55,9 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Security & Privacy</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Privacy & Safety</h3>
                             <p class="text-gray-700">
-                                We take your financial data seriously. Your information is encrypted and protected with industry-leading security measures.
+                                I care about your data. Everything is stored securely, and your privacy is always respected.
                             </p>
                         </div>
                     </div>
@@ -70,9 +71,9 @@
                             </div>
                         </div>
                         <div class="ml-4">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Simplicity</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Keep It Simple</h3>
                             <p class="text-gray-700">
-                                Financial management shouldn't be complicated. We've built a platform that's powerful yet easy to use.
+                                Complicated tools can be frustrating. I aim to keep this platform easy to use while still useful.
                             </p>
                         </div>
                     </div>
@@ -81,30 +82,30 @@
 
             <!-- What We Offer Section -->
             <div class="mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">What We Offer</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Features</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="bg-gray-50 p-6 rounded-lg">
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Income Tracking</h3>
                         <p class="text-gray-700">
-                            Keep track of all your income sources in one place. Categorize and analyze your earnings to better understand your financial flow.
+                            Track your income in one place, and get a simple overview of your earnings.
                         </p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-lg">
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Expense Management</h3>
                         <p class="text-gray-700">
-                            Monitor your spending with detailed expense tracking. Identify areas where you can save and optimize your budget.
+                            Keep an eye on your spending and find easy ways to save.
                         </p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-lg">
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Financial Goals</h3>
                         <p class="text-gray-700">
-                            Set and track your financial goals. Whether it's saving for a house, vacation, or retirement, we help you stay on track.
+                            Set goals for saving or spending, and track your progress over time.
                         </p>
                     </div>
                     <div class="bg-gray-50 p-6 rounded-lg">
                         <h3 class="text-xl font-semibold text-gray-900 mb-3">Insights & Reports</h3>
                         <p class="text-gray-700">
-                            Get valuable insights with visual reports and analytics that help you make informed financial decisions.
+                            Visual reports help you understand your finances at a glance.
                         </p>
                     </div>
                 </div>
@@ -112,9 +113,9 @@
 
             <!-- CTA Section -->
             <div class="bg-blue-50 p-8 rounded-lg text-center">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">Ready to Start Your Financial Journey?</h2>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Give It a Try</h2>
                 <p class="text-gray-700 mb-6">
-                    Join us today and take the first step towards financial freedom.
+                    It's free and still in development, but you can start using it today and give feedback to help improve it.
                 </p>
                 @auth
                     <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200">
@@ -126,7 +127,8 @@
                     </a>
                 @endauth
             </div>
+            
         </div>
     </div>
-</x-app-layout>
+</x-corporate-layout>
 

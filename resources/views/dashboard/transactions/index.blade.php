@@ -1,8 +1,6 @@
 <x-dashboard-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Transactions') }}
-        </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Transactions</h2>
     </x-slot>
 
     <div class="py-12">
@@ -132,6 +130,6 @@
         </div>
     </div>
 
-    @include('transactions.partials.modals')
+    @include('dashboard.transactions.partials.modals')
 </x-dashboard-layout>
 

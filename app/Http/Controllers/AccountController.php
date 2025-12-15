@@ -18,7 +18,7 @@ class AccountController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('accounts.index', [
+        return view('dashboard.accounts.index', [
             'accounts' => $accounts,
         ]);
     }

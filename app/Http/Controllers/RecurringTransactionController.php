@@ -24,7 +24,7 @@ class RecurringTransactionController extends Controller
             ->where('is_active', true)
             ->get();
 
-        return view('recurring-transactions.index', [
+        return view('dashboard.recurring-transactions.index', [
             'recurringTransactions' => $recurringTransactions,
             'accounts' => $accounts,
         ]);

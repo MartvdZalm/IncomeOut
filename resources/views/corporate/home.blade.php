@@ -1,13 +1,14 @@
-<x-app-layout title="Home">
+<x-corporate-layout title="Home">
+    
     <!-- Hero Section -->
     <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             <div class="text-center">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                    Take Control of Your Personal Finance
+                    Take a Simple Approach to Your Finances
                 </h1>
                 <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
-                    Manage your income, track expenses, and achieve your financial goals with our intuitive platform.
+                    A free tool I’m building to help you track income, manage expenses, and work towards your financial goals.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     @auth
@@ -16,7 +17,7 @@
                         </a>
                     @else
                         <a href="{{ route('register') }}" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-200">
-                            Get Started Free
+                            Try It Free
                         </a>
                         <a href="{{ route('about') }}" class="bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-200">
                             Learn More
@@ -32,10 +33,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Everything You Need to Manage Your Finances
+                    Helpful Features, Without the Complexity
                 </h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Powerful features designed to help you understand and improve your financial health.
+                    Tools designed to give you a clear view of your finances without overwhelming you.
                 </p>
             </div>
 
@@ -49,7 +50,7 @@
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Track Income & Expenses</h3>
                     <p class="text-gray-600">
-                        Easily record and categorize your income and expenses to get a clear picture of your cash flow.
+                        Easily record your income and expenses to see where your money goes.
                     </p>
                 </div>
 
@@ -60,9 +61,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Set Financial Goals</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Set Goals</h3>
                     <p class="text-gray-600">
-                        Define and track your financial goals, whether it's saving for a vacation or building an emergency fund.
+                        Define financial goals, like saving for a small trip or building an emergency fund, and track your progress.
                     </p>
                 </div>
 
@@ -75,7 +76,7 @@
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Visual Reports</h3>
                     <p class="text-gray-600">
-                        Get insights with beautiful charts and reports that help you understand your spending patterns.
+                        Simple charts and reports help you understand your spending patterns at a glance.
                     </p>
                 </div>
             </div>
@@ -86,10 +87,10 @@
     <div class="bg-gray-50 py-16">
         <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Ready to Get Started?
+                Ready to Give It a Try?
             </h2>
             <p class="text-xl text-gray-600 mb-8">
-                Join thousands of users who are taking control of their finances today.
+                It’s free and still in development, but you can start tracking your finances today and see if it helps.
             </p>
             @auth
                 <a href="{{ route('dashboard') }}" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200">
@@ -97,10 +98,9 @@
                 </a>
             @else
                 <a href="{{ route('register') }}" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200">
-                    Create Your Free Account
+                    Get Started Free
                 </a>
             @endauth
         </div>
     </div>
-</x-app-layout>
-
+</x-corporate-layout>

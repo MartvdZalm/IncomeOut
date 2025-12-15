@@ -8,12 +8,16 @@ use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('public.home');
+    return view('corporate.home');
 })->name('home');
 
 Route::get('/about', function () {
-    return view('public.about');
+    return view('corporate.about');
 })->name('about');
+
+Route::get('/privacy', function () {
+    return view('corporate.privacy');
+})->name('privacy');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

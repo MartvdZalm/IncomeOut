@@ -1,8 +1,6 @@
 <x-dashboard-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Recurring Transactions') }}
-        </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Recurring Transactions</h2>
     </x-slot>
 
     <div class="py-12">
@@ -114,6 +112,6 @@
         </div>
     </div>
 
-    @include('recurring-transactions.partials.modals')
+    @include('dashboard.recurring-transactions.partials.modals')
 </x-dashboard-layout>
 

@@ -35,7 +35,7 @@ class TransactionController extends Controller
         $transactions = $query->paginate(20);
         $accounts = Account::where('user_id', $user->id)->where('is_active', true)->get();
 
-        return view('transactions.index', [
+        return view('dashboard.transactions.index', [
             'transactions' => $transactions,
             'accounts' => $accounts,
             'selectedAccount' => $request->account_id,
