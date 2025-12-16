@@ -58,9 +58,9 @@ class AuthenticatedSessionController extends Controller
     {
         // Do not regenerate if a valid code already exists
         if (
-            $user->two_factor_code &&
-            $user->two_factor_expires_at &&
-            now()->lessThan($user->two_factor_expires_at)
+            $user->two_factor_code
+            && $user->two_factor_expires_at
+            && now()->lessThan($user->two_factor_expires_at)
         ) {
             return;
         }
@@ -68,7 +68,7 @@ class AuthenticatedSessionController extends Controller
         $code = random_int(100000, 999999);
 
         $user->update([
-            'two_factor_code' => Hash::make($code),
+            'two_factor_code'       => Hash::make($code),
             'two_factor_expires_at' => now()->addMinutes(5),
         ]);
 
@@ -76,7 +76,6 @@ class AuthenticatedSessionController extends Controller
             new TwoFactorCodeMail($code)
         );
     }
-
 
     /**
      * Destroy an authenticated session.

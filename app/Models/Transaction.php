@@ -14,15 +14,18 @@ class Transaction extends Model
         'user_id',
         'account_id',
         'type',
+        'is_transfer',
+        'transfer_group_id',
         'description',
         'amount',
         'date',
         'category',
+        'goal_id',
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
-        'date' => 'date',
+        'date'   => 'date',
     ];
 
     /**
@@ -40,5 +43,12 @@ class Transaction extends Model
     {
         return $this->belongsTo(Account::class);
     }
-}
 
+    /**
+     * Get the goal associated with the transaction, if any.
+     */
+    public function goal(): BelongsTo
+    {
+        return $this->belongsTo(Goal::class);
+    }
+}

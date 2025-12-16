@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+/**
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Goal> $goals
+ */
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'currency',
         'two_factor_enabled',
         'two_factor_code',
         'two_factor_expires_at',
@@ -45,7 +50,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 
@@ -71,5 +76,13 @@ class User extends Authenticatable
     public function recurringTransactions()
     {
         return $this->hasMany(RecurringTransaction::class);
+    }
+
+    /**
+     * Get the savings / budgeting goals for the user.
+     */
+    public function goals()
+    {
+        return $this->hasMany(Goal::class);
     }
 }

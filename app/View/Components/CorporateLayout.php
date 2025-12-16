@@ -13,7 +13,7 @@ class CorporateLayout extends Component
      */
     public function __construct()
     {
-        //
+
     }
 
     /**

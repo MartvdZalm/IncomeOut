@@ -37,6 +37,17 @@
                     <x-input-label for="transaction_category" value="Category (optional)" />
                     <x-text-input id="transaction_category" name="category" type="text" class="mt-1 block w-full" />
                 </div>
+                @isset($goals)
+                    <div>
+                        <x-input-label for="transaction_goal_id" value="Goal (optional)" />
+                        <select id="transaction_goal_id" name="goal_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">No goal</option>
+                            @foreach($goals as $goal)
+                                <option value="{{ $goal->id }}">{{ $goal->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endisset
                 <div class="flex gap-2">
                     <x-primary-button class="flex-1">Add Transaction</x-primary-button>
                     <button type="button" onclick="document.getElementById('addTransactionModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Cancel</button>

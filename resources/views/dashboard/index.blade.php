@@ -5,6 +5,9 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            @php
+                $currencySymbol = currency_symbol();
+            @endphp
             <!-- Success Message -->
             @if (session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
@@ -19,7 +22,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-blue-100 text-sm font-medium">Current Balance</p>
-                            <p class="text-3xl font-bold mt-2">${{ number_format($currentBalance, 2) }}</p>
+                            <p class="text-3xl font-bold mt-2">{{ format_currency($currentBalance) }}</p>
                         </div>
                         <div class="bg-white bg-opacity-20 rounded-full p-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -34,7 +37,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-green-100 text-sm font-medium">Monthly Income</p>
-                            <p class="text-3xl font-bold mt-2">${{ number_format($monthlyIncome, 2) }}</p>
+                            <p class="text-3xl font-bold mt-2">{{ format_currency($monthlyIncome) }}</p>
                             <p class="text-green-100 text-xs mt-1">{{ now()->format('F Y') }}</p>
                         </div>
                         <div class="bg-white bg-opacity-20 rounded-full p-4">
@@ -50,7 +53,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-red-100 text-sm font-medium">Monthly Expenses</p>
-                            <p class="text-3xl font-bold mt-2">${{ number_format($monthlyExpenses, 2) }}</p>
+                            <p class="text-3xl font-bold mt-2">{{ format_currency($monthlyExpenses) }}</p>
                             <p class="text-red-100 text-xs mt-1">{{ now()->format('F Y') }}</p>
                         </div>
                         <div class="bg-white bg-opacity-20 rounded-full p-4">
@@ -63,7 +66,7 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <a href="{{ route('transactions.index') }}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
                     <div class="flex items-center">
                         <div class="bg-blue-100 rounded-full p-3 mr-4">
@@ -74,6 +77,20 @@
                         <div>
                             <h3 class="font-semibold text-gray-900">Transactions</h3>
                             <p class="text-sm text-gray-500">View all transactions</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="{{ route('goals.index') }}" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                    <div class="flex items-center">
+                        <div class="bg-yellow-100 rounded-full p-3 mr-4">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900">Goals</h3>
+                            <p class="text-sm text-gray-500">Track your savings goals</p>
                         </div>
                     </div>
                 </a>
@@ -170,7 +187,7 @@
                                             {{ $transaction->account ? $transaction->account->name : '-' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold {{ $transaction->type === 'income' ? 'text-green-600' : 'text-red-600' }}">
-                                            {{ $transaction->type === 'income' ? '+' : '-' }}${{ number_format($transaction->amount, 2) }}
+                                            {{ $transaction->type === 'income' ? '+' : '-' }}{{ format_currency($transaction->amount) }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <form action="{{ route('transactions.destroy', $transaction) }}" method="POST" class="inline">
@@ -207,6 +224,8 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
+        const currencySymbol = @json($currencySymbol);
+
         // Income vs Expenses Chart
         const incomeExpenseCtx = document.getElementById('incomeExpenseChart');
         if (incomeExpenseCtx) {
@@ -240,7 +259,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': $' + context.parsed.y.toFixed(2);
+                                    return context.dataset.label + ': ' + currencySymbol + context.parsed.y.toFixed(2);
                                 }
                             }
                         }
@@ -250,7 +269,7 @@
                             beginAtZero: true,
                             ticks: {
                                 callback: function(value) {
-                                    return '$' + value.toFixed(2);
+                                    return currencySymbol + value.toFixed(2);
                                 }
                             }
                         }
@@ -297,7 +316,7 @@
                                 label: function(context) {
                                     const value = context.parsed.y;
                                     const sign = value >= 0 ? '+' : '';
-                                    return 'Net: ' + sign + '$' + value.toFixed(2);
+                                    return 'Net: ' + sign + currencySymbol + value.toFixed(2);
                                 }
                             }
                         }
@@ -306,7 +325,7 @@
                         y: {
                             ticks: {
                                 callback: function(value) {
-                                    return '$' + value.toFixed(2);
+                                    return currencySymbol + value.toFixed(2);
                                 }
                             },
                             grid: {

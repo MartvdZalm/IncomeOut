@@ -73,7 +73,11 @@
                                             {{ $transaction->date->format('M d, Y') }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            @if($transaction->type === 'income')
+                                            @if($transaction->is_transfer)
+                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                                    Transfer
+                                                </span>
+                                            @elseif($transaction->type === 'income')
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                     Income
                                                 </span>

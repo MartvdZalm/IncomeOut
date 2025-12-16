@@ -13,7 +13,7 @@ class AuthNavbar extends Component
      */
     public function __construct()
     {
-        //
+
     }
 
     /**

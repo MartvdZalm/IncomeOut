@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Goal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -14,29 +15,36 @@ class AccountController extends Controller
      */
     public function index(): View
     {
-        $accounts = Account::where('user_id', auth()->id())
+        $userId = auth()->id();
+
+        $accounts = Account::where('user_id', $userId)
             ->orderBy('name')
+            ->get();
+
+        $goals = Goal::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return view('dashboard.accounts.index', [
             'accounts' => $accounts,
+            'goals'    => $goals,
         ]);
     }
 
     /**
      * Store a newly created account.
      */
-    public function store(Request $request)
+    public function store(Request $request): string
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|in:checking,savings,credit_card,investment,other',
+            'name'    => 'required|string|max:255',
+            'type'    => 'required|in:checking,savings,credit_card,investment,other',
             'balance' => 'required|numeric|min:0',
-            'color' => 'nullable|string|max:7',
+            'color'   => 'nullable|string|max:7',
         ]);
 
         $validated['user_id'] = auth()->id();
-        $validated['color'] = $validated['color'] ?? '#3B82F6';
+        $validated['color']   = $validated['color'] ?? '#3B82F6';
 
         Account::create($validated);
 
@@ -46,7 +54,7 @@ class AccountController extends Controller
     /**
      * Update the specified account.
      */
-    public function update(Request $request, Account $account)
+    public function update(Request $request, Account $account): string
     {
         // Ensure the account belongs to the authenticated user
         if ($account->user_id !== auth()->id()) {
@@ -54,10 +62,10 @@ class AccountController extends Controller
         }
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|in:checking,savings,credit_card,investment,other',
-            'balance' => 'required|numeric|min:0',
-            'color' => 'nullable|string|max:7',
+            'name'      => 'required|string|max:255',
+            'type'      => 'required|in:checking,savings,credit_card,investment,other',
+            'balance'   => 'required|numeric|min:0',
+            'color'     => 'nullable|string|max:7',
             'is_active' => 'boolean',
         ]);
 
@@ -69,7 +77,7 @@ class AccountController extends Controller
     /**
      * Remove the specified account.
      */
-    public function destroy(Account $account)
+    public function destroy(Account $account): string
     {
         // Ensure the account belongs to the authenticated user
         if ($account->user_id !== auth()->id()) {

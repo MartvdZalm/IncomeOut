@@ -21,7 +21,7 @@ class Account extends Model
     ];
 
     protected $casts = [
-        'balance' => 'decimal:2',
+        'balance'   => 'decimal:2',
         'is_active' => 'boolean',
     ];
 
@@ -49,12 +49,11 @@ class Account extends Model
         $income = $this->transactions()
             ->where('type', 'income')
             ->sum('amount');
-        
+
         $expenses = $this->transactions()
             ->where('type', 'expense')
             ->sum('amount');
-        
+
         return $this->balance + $income - $expenses;
     }
 }
-

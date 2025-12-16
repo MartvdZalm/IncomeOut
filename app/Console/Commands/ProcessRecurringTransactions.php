@@ -25,23 +25,23 @@ class ProcessRecurringTransactions extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $this->info('Processing recurring transactions...');
 
         $recurringTransactions = RecurringTransaction::where('is_active', true)->get();
-        $processed = 0;
+        $processed             = 0;
 
         foreach ($recurringTransactions as $recurring) {
             if ($recurring->shouldProcessToday()) {
                 Transaction::create([
-                    'user_id' => $recurring->user_id,
-                    'account_id' => $recurring->account_id,
-                    'type' => $recurring->type,
+                    'user_id'     => $recurring->user_id,
+                    'account_id'  => $recurring->account_id,
+                    'type'        => $recurring->type,
                     'description' => $recurring->description,
-                    'amount' => $recurring->amount,
-                    'date' => now()->toDateString(),
-                    'category' => $recurring->category,
+                    'amount'      => $recurring->amount,
+                    'date'        => now()->toDateString(),
+                    'category'    => $recurring->category,
                 ]);
 
                 $recurring->update(['last_processed' => now()]);
@@ -56,4 +56,3 @@ class ProcessRecurringTransactions extends Command
         return Command::SUCCESS;
     }
 }
-

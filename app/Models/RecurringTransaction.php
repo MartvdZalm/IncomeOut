@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Carbon\Carbon;
 
 class RecurringTransaction extends Model
 {
@@ -27,11 +27,11 @@ class RecurringTransaction extends Model
     ];
 
     protected $casts = [
-        'amount' => 'decimal:2',
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'amount'         => 'decimal:2',
+        'start_date'     => 'date',
+        'end_date'       => 'date',
         'last_processed' => 'date',
-        'is_active' => 'boolean',
+        'is_active'      => 'boolean',
     ];
 
     /**
@@ -60,7 +60,7 @@ class RecurringTransaction extends Model
         }
 
         $today = Carbon::today();
-        
+
         // Check if we're past the end date
         if ($this->end_date && $today->gt($this->end_date)) {
             return false;
@@ -80,28 +80,27 @@ class RecurringTransaction extends Model
         switch ($this->frequency) {
             case 'daily':
                 return true;
-            
+
             case 'weekly':
                 return $today->dayOfWeek === $this->start_date->dayOfWeek;
-            
+
             case 'biweekly':
                 $weeksSinceStart = $today->diffInWeeks($this->start_date);
                 return $weeksSinceStart % 2 === 0 && $today->dayOfWeek === $this->start_date->dayOfWeek;
-            
+
             case 'monthly':
                 $day = $this->day_of_month ?? $this->start_date->day;
                 // Handle months with fewer days (e.g., Feb 31 -> Feb 28)
                 $lastDayOfMonth = $today->copy()->endOfMonth()->day;
-                $processDay = min($day, $lastDayOfMonth);
+                $processDay     = min($day, $lastDayOfMonth);
                 return $today->day === $processDay;
-            
+
             case 'yearly':
-                return $today->month === $this->start_date->month && 
-                       $today->day === $this->start_date->day;
-            
+                return $today->month === $this->start_date->month
+                       && $today->day === $this->start_date->day;
+
             default:
                 return false;
         }
     }
 }
-

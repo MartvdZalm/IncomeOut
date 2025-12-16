@@ -13,7 +13,7 @@ class GuestNavbar extends Component
      */
     public function __construct()
     {
-        //
+
     }
 
     /**

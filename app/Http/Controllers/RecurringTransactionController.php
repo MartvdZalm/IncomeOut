@@ -26,7 +26,7 @@ class RecurringTransactionController extends Controller
 
         return view('dashboard.recurring-transactions.index', [
             'recurringTransactions' => $recurringTransactions,
-            'accounts' => $accounts,
+            'accounts'              => $accounts,
         ]);
     }
 
@@ -36,14 +36,14 @@ class RecurringTransactionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'account_id' => 'nullable|exists:accounts,id',
-            'type' => 'required|in:income,expense',
-            'description' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0.01',
-            'category' => 'nullable|string|max:255',
-            'frequency' => 'required|in:daily,weekly,biweekly,monthly,yearly',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after:start_date',
+            'account_id'   => 'nullable|exists:accounts,id',
+            'type'         => 'required|in:income,expense',
+            'description'  => 'required|string|max:255',
+            'amount'       => 'required|numeric|min:0.01',
+            'category'     => 'nullable|string|max:255',
+            'frequency'    => 'required|in:daily,weekly,biweekly,monthly,yearly',
+            'start_date'   => 'required|date',
+            'end_date'     => 'nullable|date|after:start_date',
             'day_of_month' => 'nullable|integer|min:1|max:31',
         ]);
 
@@ -72,16 +72,16 @@ class RecurringTransactionController extends Controller
         }
 
         $validated = $request->validate([
-            'account_id' => 'nullable|exists:accounts,id',
-            'type' => 'required|in:income,expense',
-            'description' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0.01',
-            'category' => 'nullable|string|max:255',
-            'frequency' => 'required|in:daily,weekly,biweekly,monthly,yearly',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date|after:start_date',
+            'account_id'   => 'nullable|exists:accounts,id',
+            'type'         => 'required|in:income,expense',
+            'description'  => 'required|string|max:255',
+            'amount'       => 'required|numeric|min:0.01',
+            'category'     => 'nullable|string|max:255',
+            'frequency'    => 'required|in:daily,weekly,biweekly,monthly,yearly',
+            'start_date'   => 'required|date',
+            'end_date'     => 'nullable|date|after:start_date',
             'day_of_month' => 'nullable|integer|min:1|max:31',
-            'is_active' => 'boolean',
+            'is_active'    => 'boolean',
         ]);
 
         $recurringTransaction->update($validated);

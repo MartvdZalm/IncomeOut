@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 class TwoFactorController extends Controller
 {
@@ -27,25 +26,16 @@ class TwoFactorController extends Controller
 
         $user = User::findOrFail(session('2fa_user_id'));
 
-
-        \Log::info('2FA verify debug', [
-            'entered' => $request->code,
-            'hash_check' => Hash::check($request->code, $user->two_factor_code),
-            'expires_at' => $user->two_factor_expires_at,
-            'now' => now(),
-        ]);
-
-
         if (
-            Hash::check($request->code, $user->two_factor_code) &&
-            now()->lessThan($user->two_factor_expires_at)
+            Hash::check($request->code, $user->two_factor_code)
+            && now()->lessThan($user->two_factor_expires_at)
         ) {
             Auth::login($user);
 
             $request->session()->forget('2fa_user_id');
 
             $user->update([
-                'two_factor_code' => null,
+                'two_factor_code'       => null,
                 'two_factor_expires_at' => null,
             ]);
 

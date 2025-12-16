@@ -41,6 +41,15 @@
                                 <p class="text-sm text-gray-500">Current Balance</p>
                                 <p class="text-3xl font-bold mt-1" style="color: {{ $account->color }};">${{ number_format($account->calculateBalance(), 2) }}</p>
                                 <p class="text-xs text-gray-400 mt-1">Starting: ${{ number_format($account->balance, 2) }}</p>
+
+                                <div class="flex flex-wrap gap-2 mt-4">
+                                    <a href="{{ route('transactions.index', ['account_id' => $account->id]) }}" class="text-blue-600 hover:text-blue-800 text-xs font-medium">
+                                        View transactions
+                                    </a>
+                                    <button type="button" onclick="openTransferModal({{ $account->id }})" class="text-green-600 hover:text-green-800 text-xs font-medium">
+                                        Transfer money
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -64,4 +73,5 @@
 
     @include('dashboard.accounts.partials.modals')
 </x-dashboard-layout>
+
 

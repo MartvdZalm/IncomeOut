@@ -45,6 +45,25 @@
             @endif
         </div>
 
+        <div>
+            <x-input-label for="currency" value="Currency" />
+            <select
+                id="currency"
+                name="currency"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            >
+                @php
+                    $currentCurrency = old('currency', $user->currency ?? 'USD');
+                @endphp
+                <option value="USD" {{ $currentCurrency === 'USD' ? 'selected' : '' }}>$ – US Dollar</option>
+                <option value="EUR" {{ $currentCurrency === 'EUR' ? 'selected' : '' }}>€ – Euro</option>
+                <option value="GBP" {{ $currentCurrency === 'GBP' ? 'selected' : '' }}>£ – British Pound</option>
+                <option value="JPY" {{ $currentCurrency === 'JPY' ? 'selected' : '' }}>¥ – Japanese Yen</option>
+                <option value="CNY" {{ $currentCurrency === 'CNY' ? 'selected' : '' }}>¥ – Chinese Yuan</option>
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('currency')" />
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>Save</x-primary-button>
 

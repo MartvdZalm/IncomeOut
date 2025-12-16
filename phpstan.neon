@@ -1,0 +1,41 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - vendor/spaze/phpstan-disallowed-calls/extension.neon
+    - vendor/nunomaduro/larastan/extension.neon
+    - phpstan-baseline.php
+
+parameters:
+    level: 9
+    paths:
+        - app
+        - config
+        - database
+        - routes
+        - tests
+    phpVersion: 80400
+    parallel:
+        processTimeout: 3600.0
+    checkModelProperties: true
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    disallowedFunctionCalls:
+        -
+            function: 'dd'
+            message: 'dd() is not allowed. Use proper logging or exceptions.'
+        -
+            function: 'dump'
+            message: 'dump() is not allowed in production code.'
+        -
+            function: 'die'
+            message: 'die() is not allowed. Throw exceptions instead.'
+        -
+            function: 'exit'
+            message: 'exit() is not allowed. Throw exceptions instead.'
+        -
+            function: 'echo'
+            message: 'echo is not allowed. Use proper logging or view rendering.'
+
+    excludePaths:
+        - vendor/*
+        - storage/*
+        - node_modules/*
