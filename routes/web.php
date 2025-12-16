@@ -29,13 +29,13 @@ Route::post('/2fa', [TwoFactorController::class, 'verify'])
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
     // Transactions
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
     Route::post('/transactions/transfer', [TransactionController::class, 'transfer'])->name('transactions.transfer');
     Route::delete('/transactions/{transaction}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
-    
+
     // Accounts
     Route::get('/accounts', [AccountController::class, 'index'])->name('accounts.index');
     Route::post('/accounts', [AccountController::class, 'store'])->name('accounts.store');
@@ -47,7 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/goals', [GoalController::class, 'store'])->name('goals.store');
     Route::patch('/goals/{goal}', [GoalController::class, 'update'])->name('goals.update');
     Route::delete('/goals/{goal}', [GoalController::class, 'destroy'])->name('goals.destroy');
-    
+
     // Recurring Transactions
     Route::get('/recurring-transactions', [RecurringTransactionController::class, 'index'])->name('recurring-transactions.index');
     Route::post('/recurring-transactions', [RecurringTransactionController::class, 'store'])->name('recurring-transactions.store');

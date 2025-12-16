@@ -33,7 +33,7 @@ class RecurringTransactionController extends Controller
     /**
      * Store a newly created recurring transaction.
      */
-    public function store(Request $request)
+    public function store(Request $request): string
     {
         $validated = $request->validate([
             'account_id'   => 'nullable|exists:accounts,id',
@@ -64,7 +64,7 @@ class RecurringTransactionController extends Controller
     /**
      * Update the specified recurring transaction.
      */
-    public function update(Request $request, RecurringTransaction $recurringTransaction)
+    public function update(Request $request, RecurringTransaction $recurringTransaction): string
     {
         // Ensure the recurring transaction belongs to the authenticated user
         if ($recurringTransaction->user_id !== auth()->id()) {
@@ -92,7 +92,7 @@ class RecurringTransactionController extends Controller
     /**
      * Remove the specified recurring transaction.
      */
-    public function destroy(RecurringTransaction $recurringTransaction)
+    public function destroy(RecurringTransaction $recurringTransaction): string
     {
         // Ensure the recurring transaction belongs to the authenticated user
         if ($recurringTransaction->user_id !== auth()->id()) {

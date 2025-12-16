@@ -34,15 +34,15 @@ class GoalController extends Controller
         // Calculate progress based on transactions linked to each goal
         $goalsWithProgress = $goals->map(function (Goal $goal) {
             $contributions = $goal->transactions()
-                ->where('amount', '>', 0)
+                ->where('transactions.amount', '>', 0)
                 ->sum('amount');
 
             $percentage = $goal->target_amount > 0
                 ? min(100, round(($contributions / $goal->target_amount) * 100, 1))
                 : 0;
 
-            // $goal->progress_amount     = $contributions;
-            // $goal->progress_percentage = $percentage;
+            $goal->setAttribute('progress_amount', $contributions);
+            $goal->setAttribute('progress_percentage', (float) $percentage);
 
             return $goal;
         });
