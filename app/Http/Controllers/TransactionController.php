@@ -7,16 +7,19 @@ use App\Models\Goal;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
     /**
      * Display a listing of transactions.
      */
-    public function index(Request $request): View
+    public function index(Request $request): string
     {
         $user = auth()->user();
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
 
         $query = Transaction::where('user_id', $user->id)
             ->with('account')
@@ -49,8 +52,15 @@ class TransactionController extends Controller
     /**
      * Store a newly created transaction.
      */
-    public function store(Request $request)
+    public function store(Request $request): string
     {
+        $user = auth()->user();
+
+        // Check if the user is authenticated
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         $validated = $request->validate([
             'account_id'  => 'nullable|exists:accounts,id',
             'type'        => 'required|in:income,expense',
@@ -61,19 +71,19 @@ class TransactionController extends Controller
             'goal_id'     => 'nullable|exists:goals,id',
         ]);
 
-        $validated['user_id'] = auth()->id();
+        $validated['user_id'] = $user->id;
 
         // Validate account belongs to user if provided
         if (! empty($validated['account_id'])) {
             Account::where('id', $validated['account_id'])
-                ->where('user_id', auth()->id())
+                ->where('user_id', $user->id)
                 ->firstOrFail();
         }
 
         // Validate goal belongs to user if provided
         if (! empty($validated['goal_id'])) {
             Goal::where('id', $validated['goal_id'])
-                ->where('user_id', auth()->id())
+                ->where('user_id', $user->id)
                 ->firstOrFail();
         }
 
@@ -85,7 +95,7 @@ class TransactionController extends Controller
     /**
      * Remove the specified transaction.
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Transaction $transaction): string
     {
         // Ensure the transaction belongs to the authenticated user
         if ($transaction->user_id !== auth()->id()) {
@@ -100,7 +110,7 @@ class TransactionController extends Controller
     /**
      * Create an internal transfer between two accounts in a single step.
      */
-    public function transfer(Request $request)
+    public function transfer(Request $request): string
     {
         $userId = auth()->id();
 

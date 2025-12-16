@@ -3,14 +3,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RecurringTransaction extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
         'account_id',
@@ -36,6 +33,8 @@ class RecurringTransaction extends Model
 
     /**
      * Get the user that owns the recurring transaction.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -44,6 +43,8 @@ class RecurringTransaction extends Model
 
     /**
      * Get the account for the recurring transaction.
+     *
+     * @return BelongsTo<Account, $this>
      */
     public function account(): BelongsTo
     {

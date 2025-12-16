@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
         'account_id',
@@ -30,6 +27,8 @@ class Transaction extends Model
 
     /**
      * Get the user that owns the transaction.
+     *
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -38,6 +37,8 @@ class Transaction extends Model
 
     /**
      * Get the account for the transaction.
+     *
+     * @return BelongsTo<Account, $this>
      */
     public function account(): BelongsTo
     {
@@ -46,6 +47,8 @@ class Transaction extends Model
 
     /**
      * Get the goal associated with the transaction, if any.
+     *
+     * @return BelongsTo<Goal, $this>
      */
     public function goal(): BelongsTo
     {

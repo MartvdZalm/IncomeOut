@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
-        if ($user->two_factor_enabled) {
+        if ($user && $user->two_factor_enabled) {
 
             // Log out until 2FA is completed
             Auth::logout();
@@ -68,12 +68,12 @@ class AuthenticatedSessionController extends Controller
         $code = random_int(100000, 999999);
 
         $user->update([
-            'two_factor_code'       => Hash::make($code),
+            'two_factor_code'       => Hash::make((string) $code),
             'two_factor_expires_at' => now()->addMinutes(5),
         ]);
 
         Mail::to($user->email)->send(
-            new TwoFactorCodeMail($code)
+            new TwoFactorCodeMail((string) $code)
         );
     }
 

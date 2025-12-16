@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
         'name',
@@ -26,7 +23,7 @@ class Account extends Model
     ];
 
     /**
-     * Get the user that owns the account.
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -34,7 +31,7 @@ class Account extends Model
     }
 
     /**
-     * Get the transactions for the account.
+     * @return HasMany<Transaction, $this>
      */
     public function transactions(): HasMany
     {

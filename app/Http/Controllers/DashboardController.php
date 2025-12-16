@@ -11,9 +11,15 @@ class DashboardController extends Controller
     /**
      * Display the dashboard.
      */
-    public function index()
+    public function index(): string
     {
         $user = auth()->user();
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        $currency = $user->currency ?? 'USD';
 
         // Get current month's date range
         $startOfMonth = now()->startOfMonth();
@@ -99,6 +105,7 @@ class DashboardController extends Controller
             'chartMonths'           => $months,
             'chartIncome'           => $incomeData,
             'chartExpenses'         => $expenseData,
+            'currency'              => $currency,
         ]);
     }
 }
