@@ -74,17 +74,20 @@ class DashboardController extends Controller
             ->orderBy('description')
             ->get();
 
-        // Get last 6 months data for charts
+        // Get up to the last 24 months of data for the income/expense charts
         $months      = [];
         $incomeData  = [];
         $expenseData = [];
+        $monthDates  = [];
+        $maxMonths   = 24;
 
-        for ($i = 5; $i >= 0; $i--) {
+        for ($i = $maxMonths - 1; $i >= 0; $i--) {
             $monthStart = now()->subMonths($i)->startOfMonth();
             $monthEnd   = now()->subMonths($i)->endOfMonth();
             $monthLabel = now()->subMonths($i)->format('M Y');
 
             $months[]     = $monthLabel;
+            $monthDates[] = $monthStart->toDateString();
             $incomeData[] = Transaction::where('user_id', $user->id)
                 ->where('type', 'income')
                 ->whereBetween('date', [$monthStart, $monthEnd])
@@ -106,6 +109,7 @@ class DashboardController extends Controller
             'chartIncome'           => $incomeData,
             'chartExpenses'         => $expenseData,
             'currency'              => $currency,
+            'chartMonthDates'       => $monthDates,
         ]);
     }
 }

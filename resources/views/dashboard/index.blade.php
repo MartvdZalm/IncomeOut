@@ -124,11 +124,30 @@
                 </a>
             </div>
 
+            <!-- Charts Filters -->
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <x-date-range-picker
+                    id-prefix="dashboard-charts"
+                    label="Date range"
+                    :show-presets="true"
+                />
+                <p class="mt-2 text-xs text-gray-500">
+                    Filters are applied instantly on the charts without reloading the page.
+                </p>
+            </div>
+
             <!-- Charts Section -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <!-- Income vs Expenses Chart -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Income vs Expenses (Last 6 Months)</h3>
+                    <div class="flex items-baseline justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900">
+                            Income vs Expenses
+                        </h3>
+                        <span id="charts-range-label" class="text-sm font-normal text-gray-500">
+                            <!-- Filled by JS -->
+                        </span>
+                    </div>
                     <div style="height: 300px; position: relative;">
                         <canvas id="incomeExpenseChart"></canvas>
                     </div>
@@ -136,7 +155,9 @@
 
                 <!-- Monthly Trend Chart -->
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly Trend</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        Monthly Trend
+                    </h3>
                     <div style="height: 300px; position: relative;">
                         <canvas id="trendChart"></canvas>
                     </div>
@@ -226,71 +247,90 @@
     <script>
         const currencySymbol = @json($currencySymbol);
 
-        // Income vs Expenses Chart
+        // Full data from backend (up to last 24 months)
+        const fullMonths = @json($chartMonths);
+        const fullMonthDates = @json($chartMonthDates); // 'YYYY-MM-DD' for each month start
+        const fullIncome = @json($chartIncome);
+        const fullExpenses = @json($chartExpenses);
+
+        // Parsed JS Date objects for faster comparisons
+        const fullMonthDateObjects = fullMonthDates.map(d => new Date(d + 'T00:00:00'));
+
         const incomeExpenseCtx = document.getElementById('incomeExpenseChart');
-        if (incomeExpenseCtx) {
-            new Chart(incomeExpenseCtx, {
-                type: 'bar',
-                data: {
-                    labels: @json($chartMonths),
-                    datasets: [{
+        const trendCtx = document.getElementById('trendChart');
+        const rangeLabelEl = document.getElementById('charts-range-label');
+
+        const fromInput = document.getElementById('dashboard-charts-from');
+        const toInput = document.getElementById('dashboard-charts-to');
+        const presetButtons = document.querySelectorAll('[data-date-range-picker=\"dashboard-charts\"] [data-preset]');
+
+        let incomeChart = null;
+        let trendChart = null;
+
+        function formatCurrency(value) {
+            return currencySymbol + value.toFixed(2);
+        }
+
+        function buildRangeLabel(fromDate, toDate) {
+            if (!fromDate || !toDate) {
+                return '';
+            }
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return fromDate.toLocaleDateString(undefined, options) + ' - ' + toDate.toLocaleDateString(undefined, options);
+        }
+
+        function getFilteredIndices(fromDate, toDate) {
+            const result = [];
+            fullMonthDateObjects.forEach((monthDate, index) => {
+                if (fromDate && monthDate < fromDate) return;
+                if (toDate && monthDate > toDate) return;
+                result.push(index);
+            });
+            return result;
+        }
+
+        function getSliceByIndices(array, indices) {
+            return indices.map(i => array[i]);
+        }
+
+        function renderCharts(fromDate, toDate) {
+            if (!incomeExpenseCtx || !trendCtx) return;
+
+            const indices = getFilteredIndices(fromDate, toDate);
+            if (indices.length === 0) {
+                // If filter removes everything, fall back to full range
+                indices.push(...fullMonths.map((_, i) => i));
+            }
+
+            const labels = getSliceByIndices(fullMonths, indices);
+            const income = getSliceByIndices(fullIncome, indices);
+            const expenses = getSliceByIndices(fullExpenses, indices);
+            const netData = income.map((value, idx) => value - expenses[idx]);
+
+            const chartDataBar = {
+                labels,
+                datasets: [
+                    {
                         label: 'Income',
-                        data: @json($chartIncome),
+                        data: income,
                         backgroundColor: 'rgba(34, 197, 94, 0.8)',
                         borderColor: 'rgba(34, 197, 94, 1)',
                         borderWidth: 1
-                    }, {
+                    },
+                    {
                         label: 'Expenses',
-                        data: @json($chartExpenses),
+                        data: expenses,
                         backgroundColor: 'rgba(239, 68, 68, 0.8)',
                         borderColor: 'rgba(239, 68, 68, 1)',
                         borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    aspectRatio: 2,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + currencySymbol + context.parsed.y.toFixed(2);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return currencySymbol + value.toFixed(2);
-                                }
-                            }
-                        }
                     }
-                }
-            });
-        }
+                ]
+            };
 
-        // Monthly Trend Chart (Line Chart)
-        const trendCtx = document.getElementById('trendChart');
-        if (trendCtx) {
-            // Calculate net (income - expenses) for each month
-            const netData = @json($chartIncome).map((income, index) => {
-                return income - @json($chartExpenses)[index];
-            });
-
-            new Chart(trendCtx, {
-                type: 'line',
-                data: {
-                    labels: @json($chartMonths),
-                    datasets: [{
+            const chartDataLine = {
+                labels,
+                datasets: [
+                    {
                         label: 'Net (Income - Expenses)',
                         data: netData,
                         borderColor: 'rgba(59, 130, 246, 1)',
@@ -300,46 +340,166 @@
                         tension: 0.4,
                         pointRadius: 5,
                         pointHoverRadius: 7
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    aspectRatio: 2,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const value = context.parsed.y;
-                                    const sign = value >= 0 ? '+' : '';
-                                    return 'Net: ' + sign + currencySymbol + value.toFixed(2);
+                    }
+                ]
+            };
+
+            if (!incomeChart) {
+                incomeChart = new Chart(incomeExpenseCtx, {
+                    type: 'bar',
+                    data: chartDataBar,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 2,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                    }
                                 }
                             }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            ticks: {
-                                callback: function(value) {
-                                    return currencySymbol + value.toFixed(2);
-                                }
-                            },
-                            grid: {
-                                color: function(context) {
-                                    if (context.tick.value === 0) {
-                                        return 'rgba(0, 0, 0, 0.5)';
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return formatCurrency(value);
                                     }
-                                    return 'rgba(0, 0, 0, 0.1)';
                                 }
                             }
                         }
                     }
-                }
+                });
+            } else {
+                incomeChart.data = chartDataBar;
+                incomeChart.update();
+            }
+
+            if (!trendChart) {
+                trendChart = new Chart(trendCtx, {
+                    type: 'line',
+                    data: chartDataLine,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 2,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const value = context.parsed.y;
+                                        const sign = value >= 0 ? '+' : '';
+                                        return 'Net: ' + sign + formatCurrency(Math.abs(value));
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                ticks: {
+                                    callback: function(value) {
+                                        return formatCurrency(value);
+                                    }
+                                },
+                                grid: {
+                                    color: function(context) {
+                                        if (context.tick.value === 0) {
+                                            return 'rgba(0, 0, 0, 0.5)';
+                                        }
+                                        return 'rgba(0, 0, 0, 0.1)';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                trendChart.data = chartDataLine;
+                trendChart.update();
+            }
+
+            if (rangeLabelEl && fromDate && toDate) {
+                rangeLabelEl.textContent = buildRangeLabel(fromDate, toDate);
+            } else if (rangeLabelEl) {
+                rangeLabelEl.textContent = '';
+            }
+        }
+
+        function setInputsAndRender(fromDate, toDate) {
+            if (fromInput && fromDate) {
+                fromInput.valueAsDate = fromDate;
+            }
+            if (toInput && toDate) {
+                toInput.valueAsDate = toDate;
+            }
+            renderCharts(fromDate, toDate);
+        }
+
+        function initDefaultRange() {
+            if (fullMonthDateObjects.length === 0) return;
+
+            const lastIndex = fullMonthDateObjects.length - 1;
+            const defaultMonths = 6;
+            const firstIndex = Math.max(0, fullMonthDateObjects.length - defaultMonths);
+
+            const fromDate = fullMonthDateObjects[firstIndex];
+            const toDate = fullMonthDateObjects[lastIndex];
+
+            setInputsAndRender(fromDate, toDate);
+        }
+
+        if (fromInput && toInput) {
+            fromInput.addEventListener('change', () => {
+                const fromDate = fromInput.value ? new Date(fromInput.value + 'T00:00:00') : null;
+                const toDate = toInput.value ? new Date(toInput.value + 'T00:00:00') : null;
+                renderCharts(fromDate, toDate);
+            });
+
+            toInput.addEventListener('change', () => {
+                const fromDate = fromInput.value ? new Date(fromInput.value + 'T00:00:00') : null;
+                const toDate = toInput.value ? new Date(toInput.value + 'T00:00:00') : null;
+                renderCharts(fromDate, toDate);
             });
         }
+
+        presetButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const preset = button.getAttribute('data-preset');
+                if (!fullMonthDateObjects.length) return;
+
+                const lastIndex = fullMonthDateObjects.length - 1;
+                const toDate = fullMonthDateObjects[lastIndex];
+                let fromDate = null;
+
+                if (preset === '3m') {
+                    fromDate = new Date(toDate);
+                    fromDate.setMonth(fromDate.getMonth() - 2);
+                } else if (preset === '6m') {
+                    fromDate = new Date(toDate);
+                    fromDate.setMonth(fromDate.getMonth() - 5);
+                } else if (preset === '12m') {
+                    fromDate = new Date(toDate);
+                    fromDate.setMonth(fromDate.getMonth() - 11);
+                } else if (preset === 'ytd') {
+                    fromDate = new Date(toDate.getFullYear(), 0, 1);
+                }
+
+                setInputsAndRender(fromDate, toDate);
+            });
+        });
+
+        // Initialize with a sensible default range on load
+        initDefaultRange();
     </script>
 </x-dashboard-layout>
