@@ -25,6 +25,10 @@
             <div class="bg-white rounded-lg shadow-md p-4">
                 <form method="GET" action="{{ route('transactions.index') }}" class="flex flex-wrap gap-4">
                     <div class="flex-1 min-w-[200px]">
+                        <x-input-label for="filter_search" value="Search" />
+                        <input type="text" id="filter_search" name="search" value="{{ $searchTerm ?? '' }}" placeholder="Search by description..." class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+                    <div class="flex-1 min-w-[200px]">
                         <x-input-label for="filter_account" value="Account" />
                         <select id="filter_account" name="account_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                             <option value="">All Accounts</option>
