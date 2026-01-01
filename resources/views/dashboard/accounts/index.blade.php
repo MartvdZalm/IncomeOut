@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Accounts</h2>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Accounts</h2>
     </x-slot>
 
     <div class="py-12">
@@ -13,7 +13,7 @@
             @endif
 
             <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-gray-900">Your Accounts</h3>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Your Accounts</h3>
                 <button onclick="document.getElementById('addAccountModal').classList.remove('hidden')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
                     + Add Account
                 </button>
@@ -22,31 +22,60 @@
             @if($accounts->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($accounts as $account)
-                        <div class="bg-white rounded-lg shadow-md p-6 border-l-4" style="border-color: {{ $account->color }};">
+                        <div class="rounded-lg p-6 border border-gray-200 dark:border-gray-700 dark:bg-gray-800 border-l-4 transition dark:shadow-gray-700 shadow-md" style="border-left-color: {{ $account->color }};">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
-                                    <h4 class="text-xl font-semibold text-gray-900">{{ $account->name }}</h4>
-                                    <p class="text-sm text-gray-500 capitalize mt-1">{{ str_replace('_', ' ', $account->type) }}</p>
+                                    <h4 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+                                        {{ $account->name }}
+                                    </h4>
+
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 capitalize mt-1">
+                                        {{ str_replace('_', ' ', $account->type) }}
+                                    </p>
                                 </div>
+
                                 <div class="flex gap-2">
-                                    <button onclick="editAccount({{ $account->id }}, '{{ $account->name }}', '{{ $account->type }}', {{ $account->balance }}, '{{ $account->color }}')" class="text-blue-600 hover:text-blue-800 text-sm">Edit</button>
-                                    <form action="{{ route('accounts.destroy', $account) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure? This will also delete all transactions for this account.');">
+                                    <button
+                                        onclick="editAccount({{ $account->id }}, '{{ $account->name }}', '{{ $account->type }}', {{ $account->balance }}, '{{ $account->color }}')"
+                                        class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-sm">
+                                        Edit
+                                    </button>
+
+                                    <form action="{{ route('accounts.destroy', $account) }}" method="POST" class="inline"
+                                          onsubmit="return confirm('Are you sure? This will also delete all transactions for this account.');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-800 text-sm">Delete</button>
+                                        <button type="submit"
+                                            class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 text-sm">
+                                            Delete
+                                        </button>
                                     </form>
                                 </div>
                             </div>
+
                             <div class="mt-4">
-                                <p class="text-sm text-gray-500">Current Balance</p>
-                                <p class="text-3xl font-bold mt-1" style="color: {{ $account->color }};">${{ number_format($account->calculateBalance(), 2) }}</p>
-                                <p class="text-xs text-gray-400 mt-1">Starting: ${{ number_format($account->balance, 2) }}</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    Current Balance
+                                </p>
+
+                                <p class="text-3xl font-bold mt-1"
+                                   style="color: {{ $account->color }};">
+                                    ${{ number_format($account->calculateBalance(), 2) }}
+                                </p>
+
+                                <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                                    Starting: ${{ number_format($account->balance, 2) }}
+                                </p>
 
                                 <div class="flex flex-wrap gap-2 mt-4">
-                                    <a href="{{ route('transactions.index', ['account_id' => $account->id]) }}" class="text-blue-600 hover:text-blue-800 text-xs font-medium">
+                                    <a href="{{ route('transactions.index', ['account_id' => $account->id]) }}"
+                                       class="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 text-xs font-medium">
                                         View transactions
                                     </a>
-                                    <button type="button" onclick="openTransferModal({{ $account->id }})" class="text-green-600 hover:text-green-800 text-xs font-medium">
+
+                                    <button type="button"
+                                            onclick="openTransferModal({{ $account->id }})"
+                                            class="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 text-xs font-medium">
                                         Transfer money
                                     </button>
                                 </div>
