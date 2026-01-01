@@ -36,7 +36,12 @@ class TransactionController extends Controller
             $query->where('type', $request->type);
         }
 
-        $transactions = $query->paginate(20);
+        // Filter by search term if provided
+        if ($request->has('search') && $request->search) {
+            $query->where('description', 'ilike', "%{$request->search}%");
+        }
+
+        $transactions = $query->paginate(20)->withQueryString();
         $accounts     = Account::where('user_id', $user->id)->where('is_active', true)->get();
         $goals        = Goal::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
 
@@ -46,6 +51,7 @@ class TransactionController extends Controller
             'goals'           => $goals,
             'selectedAccount' => $request->account_id,
             'selectedType'    => $request->type,
+            'searchTerm'      => $request->search,
         ]);
     }
 
