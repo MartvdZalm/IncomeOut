@@ -37,8 +37,8 @@ class TransactionController extends Controller
         }
 
         // Filter by search term if provided
-        if ($request->has('search') && $request->search) {
-            $query->where('description', 'ilike', "%{$request->search}%");
+        if ($request->filled('search')) {
+            $query->where('description', 'ilike', '%' . $request->string('search') . '%');
         }
 
         $transactions = $query->paginate(20)->withQueryString();
