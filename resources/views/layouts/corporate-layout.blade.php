@@ -1,4 +1,4 @@
-<x-app-layout :title="$title ?? 'Corporate' " :bodyClass="'bg-white'">
+<x-app-layout :title="$title ?? 'Corporate' " class="bg-white dark:bg-gray-900">
     <x-navigation.guest-navbar />
 
     <main>

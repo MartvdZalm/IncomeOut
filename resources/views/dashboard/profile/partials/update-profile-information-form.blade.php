@@ -1,8 +1,8 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Profile Information</h2>
 
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-600">
             Update your account's profile information and email address.
         </p>
     </header>
@@ -50,7 +50,7 @@
             <select
                 id="currency"
                 name="currency"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                class="dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
             >
                 @php
                     $currentCurrency = old('currency', $user->currency ?? 'USD');

@@ -1,13 +1,13 @@
 <!-- Add Recurring Transaction Modal -->
-<div id="addRecurringModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white max-h-[90vh] overflow-y-auto">
+<div id="addRecurringModal" class="hidden fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-75 z-50 flex items-center justify-center p-4">
+    <div class="relative mx-auto p-5 border dark:border-gray-700 w-[400px] shadow-lg rounded-md bg-white dark:bg-gray-800 h-[70vh] overflow-y-auto">
         <div class="mt-3">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Add Recurring Transaction</h3>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Add Recurring Transaction</h3>
             <form action="{{ route('recurring-transactions.store') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
                     <x-input-label for="recurring_type" value="Type" />
-                    <select id="recurring_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                    <select id="recurring_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required>
                         <option value="income">Income</option>
                         <option value="expense">Expense</option>
                     </select>
@@ -22,7 +22,7 @@
                 </div>
                 <div>
                     <x-input-label for="recurring_account" value="Account (optional)" />
-                    <select id="recurring_account" name="account_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    <select id="recurring_account" name="account_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
                         <option value="">Select Account</option>
                         @foreach($accounts as $account)
                             <option value="{{ $account->id }}">{{ $account->name }}</option>
@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <x-input-label for="recurring_frequency" value="Frequency" />
-                    <select id="recurring_frequency" name="frequency" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                    <select id="recurring_frequency" name="frequency" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required>
                         <option value="daily">Daily</option>
                         <option value="weekly">Weekly</option>
                         <option value="biweekly">Biweekly</option>

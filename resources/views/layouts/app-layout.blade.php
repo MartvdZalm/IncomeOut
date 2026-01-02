@@ -7,9 +7,27 @@
         <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
+        <script>
+            // Prevent flash of white background by applying theme immediately
+            (function() {
+                const stored = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored || (prefersDark ? 'dark' : 'light');
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                }
+            })();
+        </script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased {{ $bodyClass ?? '' }}">
+    <body
+        {{ $attributes->merge([
+            'class' => 'font-sans antialiased transition-colors duration-200'
+        ]) }}
+    >
         {{ $slot }}
     </body>
 </html>
