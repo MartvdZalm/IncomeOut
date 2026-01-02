@@ -1,8 +1,8 @@
 <!-- Add Account Modal -->
-<div id="addAccountModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+<div id="addAccountModal" class="hidden fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-75 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-5 border dark:border-gray-700 w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
         <div class="mt-3">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Add New Account</h3>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Add New Account</h3>
             <form action="{{ route('accounts.store') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
@@ -11,7 +11,7 @@
                 </div>
                 <div>
                     <x-input-label for="account_type" value="Account Type" />
-                    <select id="account_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                    <select id="account_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required>
                         <option value="checking">Checking</option>
                         <option value="savings">Savings</option>
                         <option value="credit_card">Credit Card</option>
@@ -37,10 +37,10 @@
 </div>
 
 <!-- Edit Account Modal -->
-<div id="editAccountModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+<div id="editAccountModal" class="hidden fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-75 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-5 border dark:border-gray-700 w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
         <div class="mt-3">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Edit Account</h3>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Edit Account</h3>
             <form id="editAccountForm" method="POST" class="space-y-4">
                 @csrf
                 @method('PATCH')
@@ -51,7 +51,7 @@
                 </div>
                 <div>
                     <x-input-label for="edit_account_type" value="Account Type" />
-                    <select id="edit_account_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                    <select id="edit_account_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required>
                         <option value="checking">Checking</option>
                         <option value="savings">Savings</option>
                         <option value="credit_card">Credit Card</option>
@@ -100,15 +100,15 @@
 </script>
 
 <!-- Transfer Modal -->
-<div id="transferModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+<div id="transferModal" class="hidden fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-75 overflow-y-auto h-full w-full z-50">
+    <div class="relative top-20 mx-auto p-5 border dark:border-gray-700 w-96 shadow-lg rounded-md bg-white dark:bg-gray-800">
         <div class="mt-3">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Transfer Money</h3>
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Transfer Money</h3>
             <form action="{{ route('transactions.transfer') }}" method="POST" class="space-y-4">
                 @csrf
                 <div>
                     <x-input-label for="transfer_from_account_id" value="From Account" />
-                    <select id="transfer_from_account_id" name="from_account_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                    <select id="transfer_from_account_id" name="from_account_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required>
                         @foreach($accounts as $account)
                             <option value="{{ $account->id }}">{{ $account->name }}</option>
                         @endforeach
@@ -116,7 +116,7 @@
                 </div>
                 <div>
                     <x-input-label for="transfer_to_account_id" value="To Account" />
-                    <select id="transfer_to_account_id" name="to_account_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                    <select id="transfer_to_account_id" name="to_account_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required>
                         @foreach($accounts as $account)
                             <option value="{{ $account->id }}">{{ $account->name }}</option>
                         @endforeach
@@ -137,7 +137,7 @@
                 @isset($goals)
                     <div>
                         <x-input-label for="transfer_goal_id" value="Goal (optional)" />
-                        <select id="transfer_goal_id" name="goal_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <select id="transfer_goal_id" name="goal_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
                             <option value="">No goal</option>
                             @foreach($goals as $goal)
                                 <option value="{{ $goal->id }}">{{ $goal->name }}</option>
