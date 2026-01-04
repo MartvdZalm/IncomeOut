@@ -7,7 +7,7 @@
                 @csrf
                 <div>
                     <x-input-label for="transaction_type" value="Type" />
-                    <select id="transaction_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required>
+                    <select id="transaction_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" required onchange="updateCategoryOptions()">
                         <option value="income">Income</option>
                         <option value="expense">Expense</option>
                     </select>
@@ -34,8 +34,24 @@
                     <x-text-input id="transaction_date" name="date" type="date" class="mt-1 block w-full" value="{{ date('Y-m-d') }}" required />
                 </div>
                 <div>
-                    <x-input-label for="transaction_category" value="Category (optional)" />
-                    <x-text-input id="transaction_category" name="category" type="text" class="mt-1 block w-full" />
+                    <x-input-label for="transaction_category_id" value="Category (optional)" />
+                    <select id="transaction_category_id" name="category_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+                        <option value="">No category</option>
+                        @php
+                            $incomeCategories = \App\Models\Category::forUser(auth()->id(), 'income');
+                            $expenseCategories = \App\Models\Category::forUser(auth()->id(), 'expense');
+                        @endphp
+                        @foreach($expenseCategories as $category)
+                            <option value="{{ $category->id }}" data-type="expense" data-color="{{ $category->color }}" style="color: {{ $category->color }};">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                        @foreach($incomeCategories as $category)
+                            <option value="{{ $category->id }}" data-type="income" data-color="{{ $category->color }}" style="color: {{ $category->color }};">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
                 @isset($goals)
                     <div>
@@ -56,4 +72,33 @@
         </div>
     </div>
 </div>
+
+<script>
+function updateCategoryOptions() {
+    const typeSelect = document.getElementById('transaction_type');
+    const categorySelect = document.getElementById('transaction_category_id');
+    const selectedType = typeSelect.value;
+    
+    // Show/hide options based on type
+    const options = categorySelect.querySelectorAll('option[data-type]');
+    options.forEach(option => {
+        if (option.value === '') {
+            option.style.display = 'block'; // Always show "No category"
+        } else {
+            option.style.display = option.getAttribute('data-type') === selectedType ? 'block' : 'none';
+        }
+    });
+    
+    // Reset selection if current selection doesn't match type
+    const currentOption = categorySelect.options[categorySelect.selectedIndex];
+    if (currentOption.value !== '' && currentOption.getAttribute('data-type') !== selectedType) {
+        categorySelect.value = '';
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateCategoryOptions();
+});
+</script>
 

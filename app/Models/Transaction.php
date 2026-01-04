@@ -17,6 +17,7 @@ class Transaction extends Model
         'amount',
         'date',
         'category',
+        'category_id',
         'goal_id',
     ];
 
@@ -53,5 +54,28 @@ class Transaction extends Model
     public function goal(): BelongsTo
     {
         return $this->belongsTo(Goal::class);
+    }
+
+    /**
+     * Get the category for this transaction.
+     *
+     * @return BelongsTo<Category, $this>
+     */
+    public function categoryRelation(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    /**
+     * Get the category name (from relation or legacy field).
+     *
+     */
+    public function getCategoryNameAttribute(): ?string
+    {
+        if ($this->categoryRelation) {
+            return $this->categoryRelation->name;
+        }
+
+        return $this->category;
     }
 }

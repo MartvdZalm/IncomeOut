@@ -66,7 +66,7 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <a href="{{ route('transactions.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
                     <div class="flex items-center">
                         <div class="bg-blue-100 dark:bg-blue-900 rounded-full p-3 mr-4">
@@ -122,6 +122,20 @@
                         </div>
                     </div>
                 </a>
+
+                <a href="{{ route('categories.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
+                    <div class="flex items-center">
+                        <div class="bg-indigo-100 dark:bg-indigo-900 rounded-full p-3 mr-4">
+                            <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Categories</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Manage categories</p>
+                        </div>
+                    </div>
+                </a>
             </div>
 
             <!-- Charts Filters -->
@@ -164,6 +178,39 @@
                 </div>
             </div>
 
+            <!-- Category Spending Breakdown -->
+            @if(isset($categoryExpenses) && $categoryExpenses->count() > 0)
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Spending by Category (This Month)</h3>
+                        <a href="{{ route('categories.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">Manage Categories →</a>
+                    </div>
+                    <div class="space-y-4">
+                        @foreach($categoryExpenses as $item)
+                            @php
+                                $percentage = $monthlyExpenses > 0 ? ($item['amount'] / $monthlyExpenses) * 100 : 0;
+                            @endphp
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-3 h-3 rounded-full" style="background-color: {{ $item['category']->color }};"></div>
+                                        <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $item['category']->name }}</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">({{ $item['count'] }} {{ Str::plural('transaction', $item['count']) }})</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ format_currency($item['amount']) }}</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">{{ number_format($percentage, 1) }}%</span>
+                                    </div>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="h-2 rounded-full" style="width: {{ min(100, $percentage) }}%; background-color: {{ $item['category']->color }};"></div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             <!-- Recent Transactions -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6">
                 <div class="flex justify-between items-center mb-4">
@@ -179,6 +226,7 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Date</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Amount</th>
                                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
@@ -203,6 +251,17 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                             {{ $transaction->description }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                            @if($transaction->categoryRelation)
+                                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium" style="background-color: {{ $transaction->categoryRelation->color }}20; color: {{ $transaction->categoryRelation->color }};">
+                                                    {{ $transaction->categoryRelation->name }}
+                                                </span>
+                                            @elseif($transaction->category)
+                                                <span class="text-gray-500 dark:text-gray-400 text-xs">{{ $transaction->category }}</span>
+                                            @else
+                                                <span class="text-gray-400 dark:text-gray-500 text-xs">-</span>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                             {{ $transaction->account ? $transaction->account->name : '-' }}
