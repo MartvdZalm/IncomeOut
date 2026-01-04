@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('accounts.index')" :active="request()->routeIs('accounts.*')">
                         Accounts
                     </x-nav-link>
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                        Categories
+                    </x-nav-link>
                     <x-nav-link :href="route('recurring-transactions.index')" :active="request()->routeIs('recurring-transactions.*')">
                         Recurring
                     </x-nav-link>
@@ -91,8 +94,14 @@
             <x-responsive-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
                 Transactions
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('goals.index')" :active="request()->routeIs('goals.*')">
+                Goals
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('accounts.index')" :active="request()->routeIs('accounts.*')">
                 Accounts
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                Categories
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('recurring-transactions.index')" :active="request()->routeIs('recurring-transactions.*')">
                 Recurring

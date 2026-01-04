@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Category;
 use App\Models\RecurringTransaction;
 use App\Models\Transaction;
 
@@ -61,11 +62,37 @@ class DashboardController extends Controller
 
         // Get recent transactions
         $recentTransactions = Transaction::where('user_id', $user->id)
-            ->with('account')
+            ->with(['account', 'categoryRelation'])
             ->orderBy('date', 'desc')
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get();
+
+        // Get category-based expense breakdown for current month
+        $categoryExpenses = Transaction::where('user_id', $user->id)
+            ->where('type', 'expense')
+            ->whereBetween('date', [$startOfMonth, $endOfMonth])
+            ->whereNotNull('category_id')
+            ->with('categoryRelation')
+            ->get()
+            ->groupBy('category_id')
+
+            ->map(function ($transactions) {
+                $firstTransaction = $transactions->first();
+                if (!$firstTransaction) {
+                    return null;
+                }
+
+                $category = $firstTransaction->categoryRelation;
+                return [
+                    'category' => $category,
+                    'amount'   => $transactions->sum('amount'),
+                    'count'    => $transactions->count(),
+                ];
+            })
+            ->filter()
+            ->sortByDesc('amount')
+            ->take(10); // Top 10 categories
 
         // Get recurring transactions
         $recurringTransactions = RecurringTransaction::where('user_id', $user->id)
@@ -105,6 +132,7 @@ class DashboardController extends Controller
             'accounts'              => $accounts,
             'recentTransactions'    => $recentTransactions,
             'recurringTransactions' => $recurringTransactions,
+            'categoryExpenses'      => $categoryExpenses,
             'chartMonths'           => $months,
             'chartIncome'           => $incomeData,
             'chartExpenses'         => $expenseData,

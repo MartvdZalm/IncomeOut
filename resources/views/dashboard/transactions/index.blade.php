@@ -41,10 +41,21 @@
                     </div>
                     <div class="flex-1 min-w-[200px]">
                         <x-input-label for="filter_type" value="Type" />
-                        <select id="filter_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+                        <select id="filter_type" name="type" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" onchange="updateCategoryFilter()">
                             <option value="">All Types</option>
                             <option value="income" {{ $selectedType == 'income' ? 'selected' : '' }}>Income</option>
                             <option value="expense" {{ $selectedType == 'expense' ? 'selected' : '' }}>Expense</option>
+                        </select>
+                    </div>
+                    <div class="flex-1 min-w-[200px]">
+                        <x-input-label for="filter_category" value="Category" />
+                        <select id="filter_category" name="category_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+                            <option value="">All Categories</option>
+                            @foreach($categories ?? [] as $category)
+                                <option value="{{ $category->id }}" data-type="{{ $category->type }}" {{ ($selectedCategory ?? '') == $category->id ? 'selected' : '' }} style="color: {{ $category->color }};">
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="flex items-end">
@@ -97,8 +108,16 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                             {{ $transaction->account ? $transaction->account->name : '-' }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                            {{ $transaction->category ?? '-' }}
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                            @if($transaction->categoryRelation)
+                                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium" style="background-color: {{ $transaction->categoryRelation->color }}20; color: {{ $transaction->categoryRelation->color }};">
+                                                    {{ $transaction->categoryRelation->name }}
+                                                </span>
+                                            @elseif($transaction->category)
+                                                <span class="text-gray-500 dark:text-gray-400">{{ $transaction->category }}</span>
+                                            @else
+                                                <span class="text-gray-400 dark:text-gray-500">-</span>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold {{ $transaction->type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                             {{ $transaction->type === 'income' ? '+' : '-' }}${{ number_format($transaction->amount, 2) }}
@@ -139,5 +158,34 @@
     </div>
 
     @include('dashboard.transactions.partials.modals')
+
+    <script>
+    function updateCategoryFilter() {
+        const typeSelect = document.getElementById('filter_type');
+        const categorySelect = document.getElementById('filter_category');
+        const selectedType = typeSelect.value;
+        
+        // Show/hide options based on type
+        const options = categorySelect.querySelectorAll('option[data-type]');
+        options.forEach(option => {
+            if (option.value === '') {
+                option.style.display = 'block'; // Always show "All Categories"
+            } else {
+                option.style.display = selectedType === '' || option.getAttribute('data-type') === selectedType ? 'block' : 'none';
+            }
+        });
+        
+        // Reset selection if current selection doesn't match type
+        const currentOption = categorySelect.options[categorySelect.selectedIndex];
+        if (currentOption.value !== '' && selectedType !== '' && currentOption.getAttribute('data-type') !== selectedType) {
+            categorySelect.value = '';
+        }
+    }
+    
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCategoryFilter();
+    });
+    </script>
 </x-dashboard-layout>
 
