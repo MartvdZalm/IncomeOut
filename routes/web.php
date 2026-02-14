@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CryptoController;
+use App\Http\Controllers\CryptoToolsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\ProfileController;
@@ -60,6 +62,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    // Crypto
+    Route::get('/crypto', [CryptoController::class, 'index'])->name('crypto.index');
+    Route::get('/crypto/tools', [CryptoToolsController::class, 'index'])->name('crypto.tools');
 });
 
 Route::middleware('auth')->group(function () {

@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                         Categories
                     </x-nav-link>
+                    <x-nav-link :href="route('crypto.index')" :active="request()->routeIs('crypto.*')">
+                        Crypto
+                    </x-nav-link>
                     <x-nav-link :href="route('recurring-transactions.index')" :active="request()->routeIs('recurring-transactions.*')">
                         Recurring
                     </x-nav-link>
@@ -102,6 +105,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                 Categories
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('crypto.index')" :active="request()->routeIs('crypto.*')">
+                Crypto
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('recurring-transactions.index')" :active="request()->routeIs('recurring-transactions.*')">
                 Recurring
