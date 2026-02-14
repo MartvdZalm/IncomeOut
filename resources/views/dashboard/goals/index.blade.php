@@ -6,7 +6,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                    role="alert">
                     <span class="block sm:inline">{{ session('success') }}</span>
                 </div>
             @endif
@@ -17,7 +18,8 @@
 
             <div class="bg-white dark:bg-gray-800 dark:shadow-gray-700 rounded-lg shadow-md p-6">
                 <h4 class="text-md font-semibold text-gray-900 mb-4 dark:text-gray-100">Add New Goal</h4>
-                <form action="{{ route('goals.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                <form action="{{ route('goals.store') }}" method="POST"
+                    class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                     @csrf
                     <div>
                         <x-input-label for="goal_name" value="Name" />
@@ -25,13 +27,15 @@
                     </div>
                     <div>
                         <x-input-label for="goal_target_amount" value="Target Amount" />
-                        <x-text-input id="goal_target_amount" name="target_amount" type="number" step="0.01" min="0.01" class="mt-1 block w-full" required />
+                        <x-text-input id="goal_target_amount" name="target_amount" type="number" step="0.01"
+                            min="0.01" class="mt-1 block w-full" required />
                     </div>
                     <div>
                         <x-input-label for="goal_primary_account_id" value="Primary Account (optional)" />
-                        <select id="goal_primary_account_id" name="primary_account_id" class="mt-1 block w-full rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white border-gray-300 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+                        <select id="goal_primary_account_id" name="primary_account_id"
+                            class="mt-1 block w-full rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white border-gray-300 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
                             <option value="">Any Account</option>
-                            @foreach($accounts as $account)
+                            @foreach ($accounts as $account)
                                 <option value="{{ $account->id }}">{{ $account->name }}</option>
                             @endforeach
                         </select>
@@ -47,10 +51,11 @@
             </div>
 
             <div class="bg-white dark:bg-gray-800 dark:shadow-gray-700 rounded-lg shadow-md p-6">
-                @if($goals->count() > 0)
+                @if ($goals->count() > 0)
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        @foreach($goals as $goal)
-                            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-5 flex flex-col justify-between">
+                        @foreach ($goals as $goal)
+                            <div
+                                class="border border-gray-200 dark:border-gray-700 rounded-lg p-5 flex flex-col justify-between">
                                 <div>
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
@@ -58,13 +63,13 @@
                                                 {{ $goal->name }}
                                             </h4>
 
-                                            @if($goal->primaryAccount)
+                                            @if ($goal->primaryAccount)
                                                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                                     Primary account: {{ $goal->primaryAccount->name }}
                                                 </p>
                                             @endif
 
-                                            @if($goal->due_date)
+                                            @if ($goal->due_date)
                                                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                                     Due: {{ $goal->due_date->format('M d, Y') }}
                                                 </p>
@@ -72,7 +77,11 @@
                                         </div>
 
                                         <form action="{{ route('goals.destroy', $goal) }}" method="POST"
-                                              onsubmit="return confirm('Delete this goal? This will not delete any transactions.')">
+                                            onsubmit="
+                                                return confirm(
+                                                    'Delete this goal? This will not delete any transactions.',
+                                                );
+                                            ">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"
@@ -94,8 +103,7 @@
 
                                     <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
                                         <div class="bg-green-500 h-2.5 rounded-full"
-                                             style="width: {{ $goal->progress_percentage }}%">
-                                        </div>
+                                            style="width: {{ $goal->progress_percentage }}%"></div>
                                     </div>
 
                                     <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
@@ -108,12 +116,12 @@
                 @else
                     <div class="text-center py-8">
                         <h4 class="text-md font-medium text-gray-900">No goals yet</h4>
-                        <p class="text-sm text-gray-500 mt-1">Create a goal above to start tracking your savings progress.</p>
+                        <p class="text-sm text-gray-500 mt-1">
+                            Create a goal above to start tracking your savings progress.
+                        </p>
                     </div>
                 @endif
             </div>
         </div>
     </div>
 </x-dashboard-layout>
-
-

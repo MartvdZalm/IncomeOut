@@ -1,4 +1,4 @@
-<x-app-layout :title="$title ?? 'Corporate' " class="bg-white dark:bg-gray-900">
+<x-app-layout :title="$title ?? 'Corporate'" class="bg-white dark:bg-gray-900">
     <x-navigation.guest-navbar />
 
     <main>
@@ -24,11 +24,19 @@
                     <h4 class="text-sm font-semibold uppercase tracking-wider mb-4">Account</h4>
                     <ul class="space-y-2">
                         @auth
-                            <li><a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-white">Dashboard</a></li>
-                            <li><a href="{{ route('profile.edit') }}" class="text-gray-400 hover:text-white">Profile</a></li>
+                            <li>
+                                <a href="{{ route('dashboard') }}" class="text-gray-400 hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('profile.edit') }}" class="text-gray-400 hover:text-white">
+                                    Profile
+                                </a>
+                            </li>
                         @else
                             <li><a href="{{ route('login') }}" class="text-gray-400 hover:text-white">Login</a></li>
-                            <li><a href="{{ route('register') }}" class="text-gray-400 hover:text-white">Register</a></li>
+                            <li>
+                                <a href="{{ route('register') }}" class="text-gray-400 hover:text-white">Register</a>
+                            </li>
                         @endauth
                     </ul>
                 </div>

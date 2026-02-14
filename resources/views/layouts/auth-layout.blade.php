@@ -6,9 +6,9 @@
             </a>
         </div>
 
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900 overflow-hidden sm:rounded-lg">
+        <div
+            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-900 overflow-hidden sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>
 </x-app-layout>
-

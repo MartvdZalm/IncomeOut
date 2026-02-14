@@ -8,9 +8,11 @@
             @php
                 $currencySymbol = currency_symbol();
             @endphp
+
             <!-- Success Message -->
             @if (session('success'))
-                <div class="bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-200 px-4 py-3 rounded relative" role="alert">
+                <div class="bg-green-100 dark:bg-green-900 border border-green-400 dark:border-green-700 text-green-700 dark:text-green-200 px-4 py-3 rounded relative"
+                    role="alert">
                     <span class="block sm:inline">{{ session('success') }}</span>
                 </div>
             @endif
@@ -26,7 +28,8 @@
                         </div>
                         <div class="bg-white bg-opacity-20 rounded-full p-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                     </div>
@@ -42,7 +45,8 @@
                         </div>
                         <div class="bg-white bg-opacity-20 rounded-full p-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                             </svg>
                         </div>
                     </div>
@@ -58,7 +62,8 @@
                         </div>
                         <div class="bg-white bg-opacity-20 rounded-full p-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                             </svg>
                         </div>
                     </div>
@@ -67,11 +72,14 @@
 
             <!-- Quick Actions -->
             <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <a href="{{ route('transactions.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
+                <a href="{{ route('transactions.index') }}"
+                    class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
                     <div class="flex items-center">
                         <div class="bg-blue-100 dark:bg-blue-900 rounded-full p-3 mr-4">
-                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
                         <div>
@@ -81,11 +89,14 @@
                     </div>
                 </a>
 
-                <a href="{{ route('goals.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
+                <a href="{{ route('goals.index') }}"
+                    class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
                     <div class="flex items-center">
                         <div class="bg-yellow-100 dark:bg-yellow-900 rounded-full p-3 mr-4">
-                            <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
                         <div>
@@ -95,11 +106,14 @@
                     </div>
                 </a>
 
-                <a href="{{ route('accounts.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
+                <a href="{{ route('accounts.index') }}"
+                    class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
                     <div class="flex items-center">
                         <div class="bg-green-100 dark:bg-green-900 rounded-full p-3 mr-4">
-                            <svg class="w-6 h-6 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            <svg class="w-6 h-6 text-green-600 dark:text-green-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                             </svg>
                         </div>
                         <div>
@@ -109,11 +123,14 @@
                     </div>
                 </a>
 
-                <a href="{{ route('recurring-transactions.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
+                <a href="{{ route('recurring-transactions.index') }}"
+                    class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
                     <div class="flex items-center">
                         <div class="bg-purple-100 dark:bg-purple-900 rounded-full p-3 mr-4">
-                            <svg class="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            <svg class="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>
                         </div>
                         <div>
@@ -123,11 +140,14 @@
                     </div>
                 </a>
 
-                <a href="{{ route('categories.index') }}" class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
+                <a href="{{ route('categories.index') }}"
+                    class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6 hover:shadow-lg transition">
                     <div class="flex items-center">
                         <div class="bg-indigo-100 dark:bg-indigo-900 rounded-full p-3 mr-4">
-                            <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                            <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-300" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                             </svg>
                         </div>
                         <div>
@@ -140,11 +160,7 @@
 
             <!-- Charts Filters -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-4">
-                <x-date-range-picker
-                    id-prefix="dashboard-charts"
-                    label="Date range"
-                    :show-presets="true"
-                />
+                <x-date-range-picker id-prefix="dashboard-charts" label="Date range" :show-presets="true" />
                 <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     Filters are applied instantly on the charts without reloading the page.
                 </p>
@@ -155,55 +171,71 @@
                 <!-- Income vs Expenses Chart -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6">
                     <div class="flex items-baseline justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                            Income vs Expenses
-                        </h3>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Income vs Expenses</h3>
                         <span id="charts-range-label" class="text-sm font-normal text-gray-500 dark:text-gray-400">
                             <!-- Filled by JS -->
                         </span>
                     </div>
-                    <div style="height: 300px; position: relative;">
+                    <div style="height: 300px; position: relative">
                         <canvas id="incomeExpenseChart"></canvas>
                     </div>
                 </div>
 
                 <!-- Monthly Trend Chart -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                        Monthly Trend
-                    </h3>
-                    <div style="height: 300px; position: relative;">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Monthly Trend</h3>
+                    <div style="height: 300px; position: relative">
                         <canvas id="trendChart"></canvas>
                     </div>
                 </div>
             </div>
 
             <!-- Category Spending Breakdown -->
-            @if(isset($categoryExpenses) && $categoryExpenses->count() > 0)
+            @if (isset($categoryExpenses) && $categoryExpenses->count() > 0)
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Spending by Category (This Month)</h3>
-                        <a href="{{ route('categories.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">Manage Categories →</a>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                            Spending by Category (This Month)
+                        </h3>
+                        <a href="{{ route('categories.index') }}"
+                            class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">
+                            Manage Categories →
+                        </a>
                     </div>
                     <div class="space-y-4">
-                        @foreach($categoryExpenses as $item)
+                        @foreach ($categoryExpenses as $item)
                             @php
                                 $percentage = $monthlyExpenses > 0 ? ($item['amount'] / $monthlyExpenses) * 100 : 0;
                             @endphp
+
                             <div>
                                 <div class="flex justify-between items-center mb-1">
                                     <div class="flex items-center gap-2">
-                                        <div class="w-3 h-3 rounded-full" style="background-color: {{ $item['category']->color }};"></div>
-                                        <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $item['category']->name }}</span>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">({{ $item['count'] }} {{ Str::plural('transaction', $item['count']) }})</span>
+                                        <div class="w-3 h-3 rounded-full"
+                                            style="background-color: {{ $item['category']->color }}"></div>
+                                        <span class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            {{ $item['category']->name }}
+                                        </span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                                            ({{ $item['count'] }} {{ Str::plural('transaction', $item['count']) }})
+                                        </span>
                                     </div>
                                     <div class="text-right">
-                                        <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">{{ format_currency($item['amount']) }}</span>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">{{ number_format($percentage, 1) }}%</span>
+                                        <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                            {{ format_currency($item['amount']) }}
+                                        </span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">
+                                            {{ number_format($percentage, 1) }}%
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                    <div class="h-2 rounded-full" style="width: {{ min(100, $percentage) }}%; background-color: {{ $item['category']->color }};"></div>
+                                    <div class="h-2 rounded-full"
+                                        style="
+                                            width: {{ min(100, $percentage) }}%;
+                                            background-color: {{ $item['category']->color }};
+                                        ">
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -215,65 +247,109 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Recent Transactions</h3>
-                    <a href="{{ route('transactions.index') }}" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">View All →</a>
+                    <a href="{{ route('transactions.index') }}"
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium">
+                        View All →
+                    </a>
                 </div>
-                
-                @if($recentTransactions->count() > 0)
+
+                @if ($recentTransactions->count() > 0)
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Date</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Type</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Description</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Amount</th>
-                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Date
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Type
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Description
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Category
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Account
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Amount
+                                    </th>
+                                    <th
+                                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                                @foreach($recentTransactions->take(5) as $transaction)
+                                @foreach ($recentTransactions->take(5) as $transaction)
                                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                             {{ $transaction->date->format('M d, Y') }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            @if($transaction->type === 'income')
-                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+                                            @if ($transaction->type === 'income')
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
                                                     Income
                                                 </span>
                                             @else
-                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
                                                     Expense
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                             {{ $transaction->description }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                            @if($transaction->categoryRelation)
-                                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium" style="background-color: {{ $transaction->categoryRelation->color }}20; color: {{ $transaction->categoryRelation->color }};">
+                                            @if ($transaction->categoryRelation)
+                                                <span
+                                                    class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium"
+                                                    style="
+                                                        background-color: {{ $transaction->categoryRelation->color }}20;
+                                                        color: {{ $transaction->categoryRelation->color }};
+                                                    ">
                                                     {{ $transaction->categoryRelation->name }}
                                                 </span>
-                                            @elseif($transaction->category)
-                                                <span class="text-gray-500 dark:text-gray-400 text-xs">{{ $transaction->category }}</span>
+                                            @elseif ($transaction->category)
+                                                <span class="text-gray-500 dark:text-gray-400 text-xs">
+                                                    {{ $transaction->category }}
+                                                </span>
                                             @else
                                                 <span class="text-gray-400 dark:text-gray-500 text-xs">-</span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                             {{ $transaction->account ? $transaction->account->name : '-' }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold {{ $transaction->type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm font-semibold {{ $transaction->type === 'income' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                             {{ $transaction->type === 'income' ? '+' : '-' }}{{ format_currency($transaction->amount) }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            <form action="{{ route('transactions.destroy', $transaction) }}" method="POST" class="inline">
+                                            <form action="{{ route('transactions.destroy', $transaction) }}"
+                                                method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300" onclick="return confirm('Are you sure you want to delete this transaction?')">
+                                                <button type="submit"
+                                                    class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
+                                                    onclick="
+                                                        return confirm(
+                                                            'Are you sure you want to delete this transaction?',
+                                                        );
+                                                    ">
                                                     Delete
                                                 </button>
                                             </form>
@@ -285,13 +361,18 @@
                     </div>
                 @else
                     <div class="text-center py-12">
-                        <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                         <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">No transactions</h3>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by adding your first transaction.</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            Get started by adding your first transaction.
+                        </p>
                         <div class="mt-6">
-                            <a href="{{ route('transactions.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
+                            <a href="{{ route('transactions.index') }}"
+                                class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">
                                 Add Transaction
                             </a>
                         </div>
@@ -313,7 +394,7 @@
         const fullExpenses = @json($chartExpenses);
 
         // Parsed JS Date objects for faster comparisons
-        const fullMonthDateObjects = fullMonthDates.map(d => new Date(d + 'T00:00:00'));
+        const fullMonthDateObjects = fullMonthDates.map((d) => new Date(d + 'T00:00:00'));
 
         const incomeExpenseCtx = document.getElementById('incomeExpenseChart');
         const trendCtx = document.getElementById('trendChart');
@@ -334,8 +415,14 @@
             if (!fromDate || !toDate) {
                 return '';
             }
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return fromDate.toLocaleDateString(undefined, options) + ' - ' + toDate.toLocaleDateString(undefined, options);
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+            return (
+                fromDate.toLocaleDateString(undefined, options) + ' - ' + toDate.toLocaleDateString(undefined, options)
+            );
         }
 
         function getFilteredIndices(fromDate, toDate) {
@@ -349,7 +436,7 @@
         }
 
         function getSliceByIndices(array, indices) {
-            return indices.map(i => array[i]);
+            return indices.map((i) => array[i]);
         }
 
         function renderCharts(fromDate, toDate) {
@@ -368,39 +455,36 @@
 
             const chartDataBar = {
                 labels,
-                datasets: [
-                    {
+                datasets: [{
                         label: 'Income',
                         data: income,
                         backgroundColor: 'rgba(34, 197, 94, 0.8)',
                         borderColor: 'rgba(34, 197, 94, 1)',
-                        borderWidth: 1
+                        borderWidth: 1,
                     },
                     {
                         label: 'Expenses',
                         data: expenses,
                         backgroundColor: 'rgba(239, 68, 68, 0.8)',
                         borderColor: 'rgba(239, 68, 68, 1)',
-                        borderWidth: 1
-                    }
-                ]
+                        borderWidth: 1,
+                    },
+                ],
             };
 
             const chartDataLine = {
                 labels,
-                datasets: [
-                    {
-                        label: 'Net (Income - Expenses)',
-                        data: netData,
-                        borderColor: 'rgba(59, 130, 246, 1)',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 5,
-                        pointHoverRadius: 7
-                    }
-                ]
+                datasets: [{
+                    label: 'Net (Income - Expenses)',
+                    data: netData,
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                }, ],
             };
 
             if (!incomeChart) {
@@ -420,9 +504,9 @@
                                 callbacks: {
                                     label: function(context) {
                                         return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
-                                    }
-                                }
-                            }
+                                    },
+                                },
+                            },
                         },
                         scales: {
                             y: {
@@ -430,11 +514,11 @@
                                 ticks: {
                                     callback: function(value) {
                                         return formatCurrency(value);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                                    },
+                                },
+                            },
+                        },
+                    },
                 });
             } else {
                 incomeChart.data = chartDataBar;
@@ -460,16 +544,16 @@
                                         const value = context.parsed.y;
                                         const sign = value >= 0 ? '+' : '';
                                         return 'Net: ' + sign + formatCurrency(Math.abs(value));
-                                    }
-                                }
-                            }
+                                    },
+                                },
+                            },
                         },
                         scales: {
                             y: {
                                 ticks: {
                                     callback: function(value) {
                                         return formatCurrency(value);
-                                    }
+                                    },
                                 },
                                 grid: {
                                     color: function(context) {
@@ -477,11 +561,11 @@
                                             return 'rgba(0, 0, 0, 0.5)';
                                         }
                                         return 'rgba(0, 0, 0, 0.1)';
-                                    }
-                                }
-                            }
-                        }
-                    }
+                                    },
+                                },
+                            },
+                        },
+                    },
                 });
             } else {
                 trendChart.data = chartDataLine;
@@ -532,7 +616,7 @@
             });
         }
 
-        presetButtons.forEach(button => {
+        presetButtons.forEach((button) => {
             button.addEventListener('click', () => {
                 const preset = button.getAttribute('data-preset');
                 if (!fullMonthDateObjects.length) return;
