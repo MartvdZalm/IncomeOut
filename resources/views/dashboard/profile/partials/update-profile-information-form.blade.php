@@ -16,17 +16,15 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" value="Name" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
-                required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-form.input id="name" name="name" label="Name" type="text" :value="old('name', $user->name)" required autofocus
+                autocomplete="name" />
+            <x-form.input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
         <div>
-            <x-input-label for="email" value="Email" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)"
-                required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <x-form.input id="email" name="email" label="Email" type="email" :value="old('email', $user->email)" required
+                autocomplete="username" />
+            <x-form.input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
                 <div>
@@ -49,9 +47,7 @@
         </div>
 
         <div>
-            <x-input-label for="currency" value="Currency" />
-            <select id="currency" name="currency"
-                class="dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+            <x-form.select id="currency" name="currency" label="Currency">
                 @php
                     $currentCurrency = old('currency', $user->currency ?? 'USD');
                 @endphp
@@ -61,8 +57,8 @@
                 <option value="GBP" {{ $currentCurrency === 'GBP' ? 'selected' : '' }}>£ – British Pound</option>
                 <option value="JPY" {{ $currentCurrency === 'JPY' ? 'selected' : '' }}>¥ – Japanese Yen</option>
                 <option value="CNY" {{ $currentCurrency === 'CNY' ? 'selected' : '' }}>¥ – Chinese Yuan</option>
-            </select>
-            <x-input-error class="mt-2" :messages="$errors->get('currency')" />
+            </x-form.select>
+            <x-form.input-error class="mt-2" :messages="$errors->get('currency')" />
         </div>
 
         <div class="flex items-center gap-4">

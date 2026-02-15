@@ -7,76 +7,51 @@
             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Add Transaction</h3>
             <form action="{{ route('transactions.store') }}" method="POST" class="space-y-4">
                 @csrf
-                <div>
-                    <x-input-label for="transaction_type" value="Type" />
-                    <select id="transaction_type" name="type"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required onchange="updateCategoryOptions()">
-                        <option value="income">Income</option>
-                        <option value="expense">Expense</option>
-                    </select>
-                </div>
-                <div>
-                    <x-input-label for="transaction_description" value="Description" />
-                    <x-text-input id="transaction_description" name="description" type="text"
-                        class="mt-1 block w-full" placeholder="e.g., Salary, Groceries" required />
-                </div>
-                <div>
-                    <x-input-label for="transaction_amount" value="Amount" />
-                    <x-text-input id="transaction_amount" name="amount" type="number" step="0.01" min="0.01"
-                        class="mt-1 block w-full" required />
-                </div>
-                <div>
-                    <x-input-label for="transaction_account" value="Account (optional)" />
-                    <select id="transaction_account" name="account_id"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
-                        <option value="">Select Account</option>
-                        @foreach ($accounts as $account)
-                            <option value="{{ $account->id }}">{{ $account->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <x-input-label for="transaction_date" value="Date" />
-                    <x-text-input id="transaction_date" name="date" type="date" class="mt-1 block w-full"
-                        value="{{ date('Y-m-d') }}" required />
-                </div>
-                <div>
-                    <x-input-label for="transaction_category_id" value="Category (optional)" />
-                    <select id="transaction_category_id" name="category_id"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
-                        <option value="">No category</option>
-                        @php
-                            $incomeCategories = \App\Models\Category::forUser(auth()->id(), 'income');
-                            $expenseCategories = \App\Models\Category::forUser(auth()->id(), 'expense');
-                        @endphp
+                <x-form.select id="transaction_type" name="type" label="Type" required
+                    onchange="updateCategoryOptions()">
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </x-form.select>
+                <x-form.input id="transaction_description" name="description" label="Description" type="text"
+                    placeholder="e.g., Salary, Groceries" required />
+                <x-form.input id="transaction_amount" name="amount" label="Amount" type="number" step="0.01"
+                    min="0.01" required />
+                <x-form.select id="transaction_account" name="account_id" label="Account (optional)">
+                    <option value="">Select Account</option>
+                    @foreach ($accounts as $account)
+                        <option value="{{ $account->id }}">{{ $account->name }}</option>
+                    @endforeach
+                </x-form.select>
+                <x-form.input id="transaction_date" name="date" label="Date" type="date"
+                    value="{{ date('Y-m-d') }}" required />
+                <x-form.select id="transaction_category_id" name="category_id" label="Category (optional)">
+                    <option value="">No category</option>
+                    @php
+                        $incomeCategories = \App\Models\Category::forUser(auth()->id(), 'income');
+                        $expenseCategories = \App\Models\Category::forUser(auth()->id(), 'expense');
+                    @endphp
 
-                        @foreach ($expenseCategories as $category)
-                            <option value="{{ $category->id }}" data-type="expense" data-color="{{ $category->color }}"
-                                style="color: {{ $category->color }}">
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
+                    @foreach ($expenseCategories as $category)
+                        <option value="{{ $category->id }}" data-type="expense" data-color="{{ $category->color }}"
+                            style="color: {{ $category->color }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
 
-                        @foreach ($incomeCategories as $category)
-                            <option value="{{ $category->id }}" data-type="income" data-color="{{ $category->color }}"
-                                style="color: {{ $category->color }}">
-                                {{ $category->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                    @foreach ($incomeCategories as $category)
+                        <option value="{{ $category->id }}" data-type="income" data-color="{{ $category->color }}"
+                            style="color: {{ $category->color }}">
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </x-form.select>
                 @isset($goals)
-                    <div>
-                        <x-input-label for="transaction_goal_id" value="Goal (optional)" />
-                        <select id="transaction_goal_id" name="goal_id"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
-                            <option value="">No goal</option>
-                            @foreach ($goals as $goal)
-                                <option value="{{ $goal->id }}">{{ $goal->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <x-form.select id="transaction_goal_id" name="goal_id" label="Goal (optional)">
+                        <option value="">No goal</option>
+                        @foreach ($goals as $goal)
+                            <option value="{{ $goal->id }}">{{ $goal->name }}</option>
+                        @endforeach
+                    </x-form.select>
                 @endisset
 
                 <div class="flex gap-2">

@@ -22,27 +22,23 @@
                     class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                     @csrf
                     <div>
-                        <x-input-label for="goal_name" value="Name" />
-                        <x-text-input id="goal_name" name="name" type="text" class="mt-1 block w-full" required />
+                        <x-form.input id="goal_name" name="name" label="Name" type="text" required />
                     </div>
                     <div>
-                        <x-input-label for="goal_target_amount" value="Target Amount" />
-                        <x-text-input id="goal_target_amount" name="target_amount" type="number" step="0.01"
-                            min="0.01" class="mt-1 block w-full" required />
+                        <x-form.input id="goal_target_amount" name="target_amount" label="Target Amount" type="number"
+                            step="0.01" min="0.01" required />
                     </div>
                     <div>
-                        <x-input-label for="goal_primary_account_id" value="Primary Account (optional)" />
-                        <select id="goal_primary_account_id" name="primary_account_id"
-                            class="mt-1 block w-full rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white border-gray-300 shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+                        <x-form.select id="goal_primary_account_id" name="primary_account_id"
+                            label="Primary Account (optional)">
                             <option value="">Any Account</option>
                             @foreach ($accounts as $account)
                                 <option value="{{ $account->id }}">{{ $account->name }}</option>
                             @endforeach
-                        </select>
+                        </x-form.select>
                     </div>
                     <div>
-                        <x-input-label for="goal_due_date" value="Due Date (optional)" />
-                        <x-text-input id="goal_due_date" name="due_date" type="date" class="mt-1 block w-full" />
+                        <x-form.input id="goal_due_date" name="due_date" label="Due Date (optional)" type="date" />
                     </div>
                     <div class="md:col-span-4 flex justify-end mt-2">
                         <x-primary-button>Create Goal</x-primary-button>

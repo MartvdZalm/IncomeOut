@@ -7,22 +7,14 @@
             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Add Category</h3>
             <form action="{{ route('categories.store') }}" method="POST" class="space-y-4">
                 @csrf
+                <x-form.input id="category_name" name="name" label="Name" type="text"
+                    placeholder="e.g., Groceries, Rent" required />
+                <x-form.select id="category_type" name="type" label="Type" required>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </x-form.select>
                 <div>
-                    <x-input-label for="category_name" value="Name" />
-                    <x-text-input id="category_name" name="name" type="text" class="mt-1 block w-full"
-                        placeholder="e.g., Groceries, Rent" required />
-                </div>
-                <div>
-                    <x-input-label for="category_type" value="Type" />
-                    <select id="category_type" name="type"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required>
-                        <option value="expense">Expense</option>
-                        <option value="income">Income</option>
-                    </select>
-                </div>
-                <div>
-                    <x-input-label for="category_color" value="Color" />
+                    <x-form.input-label for="category_color" value="Color" />
                     <div class="flex gap-2 items-center mt-1">
                         <input type="color" id="category_color" name="color" value="#6B7280"
                             class="h-10 w-20 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
@@ -58,24 +50,17 @@
                 @csrf
                 @method('PATCH')
                 <input type="hidden" id="edit_category_id" name="category_id" />
+                <x-form.input id="edit_category_name" name="name" label="Name" type="text" required />
                 <div>
-                    <x-input-label for="edit_category_name" value="Name" />
-                    <x-text-input id="edit_category_name" name="name" type="text" class="mt-1 block w-full"
-                        required />
-                </div>
-                <div>
-                    <x-input-label for="edit_category_type" value="Type" />
-                    <select id="edit_category_type" name="type"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        disabled>
+                    <x-form.select id="edit_category_type" name="type" label="Type" disabled>
                         <option value="expense">Expense</option>
                         <option value="income">Income</option>
-                    </select>
+                    </x-form.select>
                     <input type="hidden" id="edit_category_type_hidden" name="type" />
                     <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Type cannot be changed after creation</p>
                 </div>
                 <div>
-                    <x-input-label for="edit_category_color" value="Color" />
+                    <x-form.input-label for="edit_category_color" value="Color" />
                     <div class="flex gap-2 items-center mt-1">
                         <input type="color" id="edit_category_color" name="color" value="#6B7280"
                             class="h-10 w-20 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"

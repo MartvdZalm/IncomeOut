@@ -7,28 +7,23 @@
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" value="Email" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required
-                autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-form.input id="email" name="email" label="Email" type="email" :value="old('email', $request->email)" required autofocus
+                autocomplete="username" />
+            <x-form.input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" value="Password" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
+            <x-form.input id="password" name="password" label="Password" type="password" required
                 autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-form.input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" value="Confirm Password" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-form.input id="password_confirmation" name="password_confirmation" label="Confirm Password"
+                type="password" required autocomplete="new-password" />
+            <x-form.input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">

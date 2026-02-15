@@ -27,10 +27,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body
-    {{ $attributes->merge([
-        'class' => 'font-sans antialiased transition-colors duration-200',
-    ]) }}>
+<body {{ $attributes->merge([
+    'class' => 'font-sans antialiased transition-colors duration-200',
+]) }}>
     {{ $slot }}
 </body>
 

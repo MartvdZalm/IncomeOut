@@ -6,7 +6,7 @@
 
         <p class="mb-4">We sent a verification code to your email.</p>
 
-        <input type="text" name="code" maxlength="6" class="block w-full mb-3" autofocus />
+        <x-form.input id="code" name="code" label="Verification Code" type="text" maxlength="6" autofocus />
 
         <button class="btn-primary w-full">Verify</button>
 

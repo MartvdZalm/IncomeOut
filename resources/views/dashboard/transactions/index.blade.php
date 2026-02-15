@@ -27,15 +27,11 @@
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-700 p-4">
                 <form method="GET" action="{{ route('transactions.index') }}" class="flex flex-wrap gap-4">
                     <div class="flex-1 min-w-[200px]">
-                        <x-input-label for="filter_search" value="Search" />
-                        <input type="text" id="filter_search" name="search" value="{{ $searchTerm ?? '' }}"
-                            placeholder="Search by description..."
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400" />
+                        <x-form.input id="filter_search" name="search" label="Search" type="text"
+                            value="{{ $searchTerm ?? '' }}" placeholder="Search by description..." />
                     </div>
                     <div class="flex-1 min-w-[200px]">
-                        <x-input-label for="filter_account" value="Account" />
-                        <select id="filter_account" name="account_id"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+                        <x-form.select id="filter_account" name="account_id" label="Account">
                             <option value="">All Accounts</option>
                             @foreach ($accounts as $account)
                                 <option value="{{ $account->id }}"
@@ -43,22 +39,17 @@
                                     {{ $account->name }}
                                 </option>
                             @endforeach
-                        </select>
+                        </x-form.select>
                     </div>
                     <div class="flex-1 min-w-[200px]">
-                        <x-input-label for="filter_type" value="Type" />
-                        <select id="filter_type" name="type"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                            onchange="updateCategoryFilter()">
+                        <x-form.select id="filter_type" name="type" label="Type" onchange="updateCategoryFilter()">
                             <option value="">All Types</option>
                             <option value="income" {{ $selectedType == 'income' ? 'selected' : '' }}>Income</option>
                             <option value="expense" {{ $selectedType == 'expense' ? 'selected' : '' }}>Expense</option>
-                        </select>
+                        </x-form.select>
                     </div>
                     <div class="flex-1 min-w-[200px]">
-                        <x-input-label for="filter_category" value="Category" />
-                        <select id="filter_category" name="category_id"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
+                        <x-form.select id="filter_category" name="category_id" label="Category">
                             <option value="">All Categories</option>
                             @foreach ($categories ?? [] as $category)
                                 <option value="{{ $category->id }}" data-type="{{ $category->type }}"
@@ -67,7 +58,7 @@
                                     {{ $category->name }}
                                 </option>
                             @endforeach
-                        </select>
+                        </x-form.select>
                     </div>
                     <div class="flex items-end">
                         <x-primary-button>Filter</x-primary-button>

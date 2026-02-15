@@ -7,33 +7,19 @@
             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Add New Account</h3>
             <form action="{{ route('accounts.store') }}" method="POST" class="space-y-4">
                 @csrf
-                <div>
-                    <x-input-label for="account_name" value="Account Name" />
-                    <x-text-input id="account_name" name="name" type="text" class="mt-1 block w-full"
-                        placeholder="e.g., Main Checking" required />
-                </div>
-                <div>
-                    <x-input-label for="account_type" value="Account Type" />
-                    <select id="account_type" name="type"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required>
-                        <option value="checking">Checking</option>
-                        <option value="savings">Savings</option>
-                        <option value="credit_card">Credit Card</option>
-                        <option value="investment">Investment</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <x-input-label for="account_balance" value="Starting Balance" />
-                    <x-text-input id="account_balance" name="balance" type="number" step="0.01" min="0"
-                        class="mt-1 block w-full" value="0" required />
-                </div>
-                <div>
-                    <x-input-label for="account_color" value="Color" />
-                    <x-text-input id="account_color" name="color" type="color" class="mt-1 block w-full h-10"
-                        value="#3B82F6" />
-                </div>
+                <x-form.input id="account_name" name="name" label="Account Name" type="text"
+                    placeholder="e.g., Main Checking" required />
+                <x-form.select id="account_type" name="type" label="Account Type" required>
+                    <option value="checking">Checking</option>
+                    <option value="savings">Savings</option>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="investment">Investment</option>
+                    <option value="other">Other</option>
+                </x-form.select>
+                <x-form.input id="account_balance" name="balance" label="Starting Balance" type="number" step="0.01"
+                    min="0" value="0" required />
+                <x-form.input id="account_color" name="color" label="Color" type="color" class="h-10"
+                    value="#3B82F6" />
                 <div class="flex gap-2">
                     <x-primary-button class="flex-1">Create Account</x-primary-button>
                     <button type="button" onclick="document.getElementById('addAccountModal').classList.add('hidden')"
@@ -57,33 +43,17 @@
                 @csrf
                 @method('PATCH')
                 <input type="hidden" id="edit_account_id" name="account_id" />
-                <div>
-                    <x-input-label for="edit_account_name" value="Account Name" />
-                    <x-text-input id="edit_account_name" name="name" type="text" class="mt-1 block w-full"
-                        required />
-                </div>
-                <div>
-                    <x-input-label for="edit_account_type" value="Account Type" />
-                    <select id="edit_account_type" name="type"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required>
-                        <option value="checking">Checking</option>
-                        <option value="savings">Savings</option>
-                        <option value="credit_card">Credit Card</option>
-                        <option value="investment">Investment</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div>
-                    <x-input-label for="edit_account_balance" value="Starting Balance" />
-                    <x-text-input id="edit_account_balance" name="balance" type="number" step="0.01" min="0"
-                        class="mt-1 block w-full" required />
-                </div>
-                <div>
-                    <x-input-label for="edit_account_color" value="Color" />
-                    <x-text-input id="edit_account_color" name="color" type="color"
-                        class="mt-1 block w-full h-10" />
-                </div>
+                <x-form.input id="edit_account_name" name="name" label="Account Name" type="text" required />
+                <x-form.select id="edit_account_type" name="type" label="Account Type" required>
+                    <option value="checking">Checking</option>
+                    <option value="savings">Savings</option>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="investment">Investment</option>
+                    <option value="other">Other</option>
+                </x-form.select>
+                <x-form.input id="edit_account_balance" name="balance" label="Starting Balance" type="number"
+                    step="0.01" min="0" required />
+                <x-form.input id="edit_account_color" name="color" label="Color" type="color" class="h-10" />
                 <div class="flex gap-2">
                     <x-primary-button class="flex-1">Update Account</x-primary-button>
                     <button type="button" onclick="document.getElementById('editAccountModal').classList.add('hidden')"
@@ -128,52 +98,29 @@
             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Transfer Money</h3>
             <form action="{{ route('transactions.transfer') }}" method="POST" class="space-y-4">
                 @csrf
-                <div>
-                    <x-input-label for="transfer_from_account_id" value="From Account" />
-                    <select id="transfer_from_account_id" name="from_account_id"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required>
-                        @foreach ($accounts as $account)
-                            <option value="{{ $account->id }}">{{ $account->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <x-input-label for="transfer_to_account_id" value="To Account" />
-                    <select id="transfer_to_account_id" name="to_account_id"
-                        class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400"
-                        required>
-                        @foreach ($accounts as $account)
-                            <option value="{{ $account->id }}">{{ $account->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <x-input-label for="transfer_amount" value="Amount" />
-                    <x-text-input id="transfer_amount" name="amount" type="number" step="0.01" min="0.01"
-                        class="mt-1 block w-full" required />
-                </div>
-                <div>
-                    <x-input-label for="transfer_date" value="Date" />
-                    <x-text-input id="transfer_date" name="date" type="date" class="mt-1 block w-full"
-                        value="{{ date('Y-m-d') }}" required />
-                </div>
-                <div>
-                    <x-input-label for="transfer_description" value="Description (optional)" />
-                    <x-text-input id="transfer_description" name="description" type="text"
-                        class="mt-1 block w-full" placeholder="e.g., Move to savings" />
-                </div>
+                <x-form.select id="transfer_from_account_id" name="from_account_id" label="From Account" required>
+                    @foreach ($accounts as $account)
+                        <option value="{{ $account->id }}">{{ $account->name }}</option>
+                    @endforeach
+                </x-form.select>
+                <x-form.select id="transfer_to_account_id" name="to_account_id" label="To Account" required>
+                    @foreach ($accounts as $account)
+                        <option value="{{ $account->id }}">{{ $account->name }}</option>
+                    @endforeach
+                </x-form.select>
+                <x-form.input id="transfer_amount" name="amount" label="Amount" type="number" step="0.01"
+                    min="0.01" required />
+                <x-form.input id="transfer_date" name="date" label="Date" type="date"
+                    value="{{ date('Y-m-d') }}" required />
+                <x-form.input id="transfer_description" name="description" label="Description (optional)"
+                    type="text" placeholder="e.g., Move to savings" />
                 @isset($goals)
-                    <div>
-                        <x-input-label for="transfer_goal_id" value="Goal (optional)" />
-                        <select id="transfer_goal_id" name="goal_id"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400">
-                            <option value="">No goal</option>
-                            @foreach ($goals as $goal)
-                                <option value="{{ $goal->id }}">{{ $goal->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <x-form.select id="transfer_goal_id" name="goal_id" label="Goal (optional)">
+                        <option value="">No goal</option>
+                        @foreach ($goals as $goal)
+                            <option value="{{ $goal->id }}">{{ $goal->name }}</option>
+                        @endforeach
+                    </x-form.select>
                 @endisset
 
                 <div class="flex gap-2">
