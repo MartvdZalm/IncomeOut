@@ -26,8 +26,8 @@
             <section>
                 <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">How I Store Your Data</h2>
                 <p class="text-gray-700 dark:text-gray-300">
-                    I store your data securely in my database. Sensitive information is encrypted and protected using
-                    standard security practices.
+                    I store your data in a database with access restricted to this application. Session data is
+                    encrypted in production where enabled. Passwords are hashed and never stored in plain text.
                 </p>
             </section>
 

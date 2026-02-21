@@ -28,6 +28,7 @@ Route::get('/2fa', [TwoFactorController::class, 'index'])
     ->name('2fa.index');
 
 Route::post('/2fa', [TwoFactorController::class, 'verify'])
+    ->middleware('throttle:10,1')
     ->name('2fa.verify');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -72,7 +73,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/two-factor', [ProfileController::class, 'updateTwoFactor'])->name('profile.2fa.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->middleware('throttle:5,1')
+        ->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
